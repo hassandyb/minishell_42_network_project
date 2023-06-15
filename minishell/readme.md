@@ -1,4 +1,29 @@
 
+Useful resources :
+
+
+https://github.com/kube/42homebrew
+
+https://github.com/madebypixel02/minishell
+
+###################################    readline function 
+
+==>  return value s
+The readline function does not return NULL in case of failure or end-of-file. Instead, it returns NULL only when the end of input is reached or an error occurs.
+
+When you press Enter without typing anything, readline returns an empty string ('\0').
+
+
+In the readline function, if an error occurs or the end of input is reached (e.g., when the user presses Ctrl+D to indicate end-of-file), the readline function returns NULL. By checking if input is not equal to NULL, the code can determine whether the readline function successfully obtained user input.
+
+If input is not NULL, it means that the readline function was able to read input from the user, and the program can proceed to process and handle that input accordingly. This check ensures that the program does not attempt to use input when it has not been assigned a valid value.
+
+On the other hand, if input is NULL, it indicates that an error occurred or the end of input was reached, and the program can handle this situation appropriately. In the provided code, the loop will exit, and the program will continue execution after the loop.
+
+In summary, the check (input = readline(">> ")) != NULL is used to verify that the readline function successfully read user input and that the input variable contains a valid value before further processing is performed.
+
+
+
 #################################################   Input redirection
 
 1. Reading input from a file:
