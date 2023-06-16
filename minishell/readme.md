@@ -1,12 +1,56 @@
 
 Useful resources :
 
-
+instaling brew 
 https://github.com/kube/42homebrew
 
+instaling readline 
+
+brew install libreadline-dev
+
+Guide
 https://github.com/madebypixel02/minishell
 
 ###################################    readline function 
+
+Certainly! 
+
+The `readline` function is used to read a line of text from the user, providing line-editing capabilities and command history. Here is the prototype and a brief explanation of its parameters:
+
+
+char *readline(const char *prompt);
+
+
+- `prompt`: This parameter is optional and represents the prompt string that is displayed to the user before accepting input. It can be set to `NULL` or an empty string if no prompt is desired.
+
+Now let's discuss the possible return values of the `readline` function:
+
+1. If the user enters input and presses Enter, the `readline` function will return a pointer to a dynamically allocated string containing the entered text. The caller is responsible for freeing this memory using `free()` when it is no longer needed.
+
+2. If the user enters an empty line (presses Enter without typing anything), the `readline` function will return a pointer to a string that contains a null character (`'\0'`) as the first character. This represents an empty string.
+
+3. If the end-of-file (EOF) condition is encountered (e.g., when the user presses Ctrl+D on Unix/Linux systems), the `readline` function will return `NULL`. This typically indicates that the input stream has been closed or no further input is available.
+
+Here are some examples to illustrate the different return values:
+
+Example 1: User enters "Hello" and presses Enter
+```c
+char *input = readline("Enter text: ");
+// input will point to a dynamically allocated string: "Hello"
+```
+
+Example 2: User enters an empty line (presses Enter without typing anything)
+```c
+char *input = readline("Enter text: ");
+// input will point to a string with a null character: '\0'
+```
+
+Example 3: User encounters end-of-file (e.g., presses Ctrl+D)
+```c
+char *input = readline("Enter text: ");
+// input will be NULL
+```
+
 
 ==>  return value s
 The readline function does not return NULL in case of failure or end-of-file. Instead, it returns NULL only when the end of input is reached or an error occurs.
