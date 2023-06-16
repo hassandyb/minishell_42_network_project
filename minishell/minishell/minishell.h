@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/16 13:10:16 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/16 14:42:12 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,5 @@ typedef struct s_token
 	
 }t_token;
 
-
-// typedef enum e_type
-// {
-// 	type1,
-// 	type2,
-// 	type
-	
-// } t_type;
-
-// typedef enum e_day 
-// {
-// 	monday, 
-// 	tuesday , 
-// 	wednsday, 
-// 	thursday , 
-// 	friday, 
-// 	saturday, 
-// 	sunday
-// }t_day;
 
 #endif

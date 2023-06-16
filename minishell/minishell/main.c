@@ -6,13 +6,13 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/16 12:56:52 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/16 15:34:23 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main (int argc, char **argv)
+int main ()
 {
 	char *command;
 	while(1)
