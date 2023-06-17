@@ -6,7 +6,7 @@
 #    By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/16 14:44:39 by hed-dyb           #+#    #+#              #
-#    Updated: 2023/06/17 14:33:23 by hed-dyb          ###   ########.fr        #
+#    Updated: 2023/06/17 20:31:16 by hed-dyb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ LIBRARY = minishell.h
 NAME = minishell
 CC = cc 
 RM = rm -f
-FLAGS =  -Wall -Werror -Wextra -g
+FLAGS =  #-Wall -Werror -Wextra -g
 FILES = main.c 
 
 OBJ = $(FILES:%.c=%.o)
