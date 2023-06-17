@@ -6,13 +6,18 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/16 20:00:39 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/17 13:03:42 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+tokenizing
+|||
 
+parcer   chiking syntax
+
+filer new prompt    -          success expander 
 // create is a white space ...
 //cat file.txt |  				 grep "example 1"\0
 
@@ -60,6 +65,8 @@ void ft_create_node(t_token *t, char *tok, t_type tp)
 	}
 }
 
+
+
 //white space | >> << < > variable ($example) "" '' else = word
 //' '/ | / << / >> / > / <    == bonus no need   && || * ()
 t_token *ft_create_tokens(char *command)
@@ -71,21 +78,51 @@ t_token *ft_create_tokens(char *command)
 	t = NULL;
 	while(command[i])
 	{
-		if(ft_is_a_white_space(command[i]) == 1)
+		if (ft_is_a_white_space(command[i]) == 1)
 		{
-			ft_create_node(t, " ", white_space);
-			while(command[i] && ft_is_a_white_space(command[i]) == 1)
+			ft_create_node(t, " ", _white_space);
+			while(command[i])
+			{
+				if(command[i + 1] == '\0' || ft_is_a_white_space(command[i + 1]) == 0)
+					break ;
 				i++;
+			}
+					
 		}
-		if (command[i] == '|')
-			ft_create_node(t, "|", pipe);
-		else if (command[i] == '>' && command[i+1] == '>')
-			ft_create_node(t, ">>", append_output_re);//append_output_re  >>
-
-		// i++;
+		else if (command[i] == '|')
+			ft_create_node(t, "|", _pipe);
+		else if (command[i] == '>' && command[i + 1] == '>')
+		{
+			ft_create_node(t, ">>", _append_output_re);
+			i++;
+		}
+		else if (command[i] == '<' && command[i + 1] == '<')
+		{
+			ft_create_node(t, "<<", _here_document);
+			i++;
+		}
+		else if (command[i] == '>')
+			ft_create_node(t, ">", _output_re);
+		else if (command[i] == '<')
+			ft_create_node(t, "<", _input_re);
+		// else if (command[i] == '>')
+		// {
+		// 	if (command[i+1] == '>')
+		// 	{
+		// 		ft_create_node(t, ">>", append_output_re);
+		// 		i++;
+		// 	}
+		// 	else
+		// 		ft_create_node(t, ">", append_output_re);
+		// 		//append_output_re  >>
+		// }
+		i++;
 	}
 	return NULL;
-
+	// if (token previous == isword() && token next == isword())
+	// 	skip;
+	// else
+	// 	delete;
 	
 }
 int main (int argc, char **argv)

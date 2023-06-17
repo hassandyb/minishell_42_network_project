@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/16 19:54:17 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/17 13:02:16 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@
 
 typedef enum e_type
 {
-	white_space,
-	append_output_re, //>>
-	here_document,//  <<
-	word,
-	double_quote,//""
-	single_quote, //''
-	variable,
-	output_re,//  output_redirection     >
-	input_re,//   <
-	pipe,
+	_white_space,
+	_append_output_re, //>>
+	_here_document,//  <<
+	_output_re,//  >
+	_input_re,//   <
+	_word,
+	_double_quote,//""
+	_single_quote, //''
+	_variable,
+	_pipe,
 }	t_type;
 
 
