@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/17 14:54:15 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/17 21:55:21 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,21 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+
+char* typeNames[] = {
+    "_white_space",
+    "_pipe",
+    "_append_output_re",
+    "_here_document",
+    "_output_re",
+    "_input_re",
+    "_double_quote",
+    "_single_quote",
+    "_variable",
+    "_word"
+};
+
+
 typedef enum e_type
 {
 	_white_space,
@@ -26,10 +41,10 @@ typedef enum e_type
 	_here_document,//  <<
 	_output_re,//  >
 	_input_re,//   <
-	_word,
 	_double_quote,//""
 	_single_quote, //''
 	_variable,
+	_word,
 }	t_type;
 
 
@@ -42,5 +57,6 @@ typedef struct s_token
 	
 }t_token;
 
-
+int ft_is_a_white_space(char c);
+int ft_strlen(char *s);
 #endif

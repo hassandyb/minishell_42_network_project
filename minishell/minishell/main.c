@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/17 20:37:32 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/17 21:57:04 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void ft_print_linked_list(t_token *t)
 		int i = 0;
 	while(t)
 	{
-		printf("%d ==> %s    %d\n", i, t->token, t->type);
+		printf("%d ==> %s    %s\n", i, t->token, typeNames[t->type]);
 		i++;
 		t = t->next;
 	}
@@ -38,20 +38,6 @@ void ft_print_linked_list(t_token *t)
 //' '/ | / << / >> / > / <    == bonus no need   && || * ()
 
 
-int ft_is_a_white_space(char c)
-{
-	if(c == ' ' || (c >= 9 && c <= 13))
-		return 1;
-	return 0;
-}
-
-int ft_strlen(char *s)
-{
-	int i = 0;
-	while(s && s[i])
-		i++;
-	return i;
-}
 
 t_token *ft_create_node(t_token *ptr, char *tok, int tp)
 {
@@ -123,7 +109,32 @@ int ft_case_space_or_pipe(t_token **ptr, char *command, int i)
 	return i;
 }
 
-void ft_create_tokens(t_token **t, char *command)
+int ft_case_redirections(t_token **ptr, char *command, int i)
+{
+	t_token *node;
+
+	node = NULL;
+
+	if(command[i] == '>' && command[i + 1] == '>')
+	{
+		node = ft_create_node(*ptr, ">>", _append_output_re);
+		i++;;
+	}
+	else if(command[i] == '<' && command[i + 1] == '<')
+	{
+		node = ft_create_node(*ptr, "<<", _here_document);
+		i++;;
+	}
+	else if(command[i] == '>')
+		node = ft_create_node(*ptr, ">", _output_re);
+	else if(command[i] == '<')
+		node = ft_create_node(*ptr, "<", _input_re);
+	ft_add_back(ptr, node);
+	return i;
+
+}
+
+void ft_create_tokens(t_token **ptr, char *command)
 {
 	int i;
 
@@ -131,17 +142,16 @@ void ft_create_tokens(t_token **t, char *command)
 	while(command && command[i])
 	{
 		if (ft_is_a_white_space(command[i]) == 1 || command[i] == '|')
-			i = ft_case_space_or_pipe(t, command, i);
+			i = ft_case_space_or_pipe(ptr, command, i);
+		else if(command[i] == '<' || command[i] == '>')
+			i = ft_case_redirections(ptr, command, i);
 
 		i++;
 	}
 }
 
-
 int main (int argc, char **argv)
 {
-	
-	// printf("here ---\n");
 	(void)argc;
 	(void)argv;
 	t_token *t = NULL;
