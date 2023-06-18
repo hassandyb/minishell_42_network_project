@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/17 21:57:04 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/18 16:19:51 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int ft_case_redirections(t_token **ptr, char *command, int i)
 	t_token *node;
 
 	node = NULL;
-
 	if(command[i] == '>' && command[i + 1] == '>')
 	{
 		node = ft_create_node(*ptr, ">>", _append_output_re);
@@ -141,6 +140,7 @@ void ft_create_tokens(t_token **ptr, char *command)
 	i = 0;
 	while(command && command[i])
 	{
+		// printf("%d----\n", i);
 		if (ft_is_a_white_space(command[i]) == 1 || command[i] == '|')
 			i = ft_case_space_or_pipe(ptr, command, i);
 		else if(command[i] == '<' || command[i] == '>')
@@ -150,21 +150,81 @@ void ft_create_tokens(t_token **ptr, char *command)
 	}
 }
 
+
+t_free *ft_new_address(void *ptr)
+{
+	t_free *node;
+
+	node = malloc(sizeof(t_free));
+	//protection
+	node->ptr = ptr;
+	node->next = NULL;
+	return node;
+
+}
+
+void ft_add_address(t_free **ptr, t_free *new)
+{
+	t_free *temp;
+
+	temp = *ptr;
+	if(*ptr == NULL)
+		*ptr = new;
+	else 
+	{
+		while(temp)
+		{
+			if(temp->next == NULL)
+				break;
+			temp = temp->next;
+		}
+		temp->next = new;	
+	}
+}
+
+void ff(void)
+{
+	system("leaks minishell");
+}
+
 int main (int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	t_token *t = NULL;
+	t_token *t;
 	char *command;
-	while(1)
-	{
-		command = readline("minishell= ");
-		if(command == NULL )
-			exit (0);
-		add_history(command);
-		
-		ft_create_tokens(&t, command);
-		ft_print_linked_list(t);
-		free(command);
-	}
+	atexit(ff);
+	// while(1)
+	// {
+	// 	t = NULL;
+	// 	command = readline("minishell= ");
+	// 	if(command == NULL )
+	// 		exit (0);
+	// 	add_history(command);
+	// 	ft_create_tokens(&t, command);
+	// 	ft_print_linked_list(t);
+	// 	free(command);
+	// }
+
+
+
+
+	
+	// t_free *list;
+	// list = NULL;
+	// char *tt = malloc(sizeof(char)* 2000);
+	// ft_add_address(&list, ft_new_address(tt));
+	// int *tdt = malloc(sizeof(int)* 2000);
+	// ft_add_address(&list, ft_new_address(tdt));
+	// t_token *tok =  malloc(sizeof(t_token));
+	// ft_add_address(&list, ft_new_address(tok));
+	// tok->token = malloc(sizeof(char) * 40);
+	// ft_add_address(&list, ft_new_address(tok->token));
+	// while (list)
+	// {
+	// 	t_free *tmp = list;
+	// 	list = list->next; 
+	// 	free(tmp->ptr);
+	// 	free(tmp);
+	// }
 }

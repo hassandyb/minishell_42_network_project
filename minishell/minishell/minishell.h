@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/17 21:55:21 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/18 15:54:55 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <readline/history.h>
 
 
-char* typeNames[] = {
+static char* typeNames[] = {
     "_white_space",
     "_pipe",
     "_append_output_re",
@@ -32,7 +32,11 @@ char* typeNames[] = {
     "_word"
 };
 
-
+typedef struct s_free
+{
+	void *ptr;
+	struct s_free *next;
+}t_free;
 typedef enum e_type
 {
 	_white_space,
