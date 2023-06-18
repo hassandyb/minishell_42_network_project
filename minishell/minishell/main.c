@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/18 16:19:51 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/18 18:58:07 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,37 +194,22 @@ int main (int argc, char **argv)
 	t_token *t;
 	char *command;
 	atexit(ff);
-	// while(1)
-	// {
-	// 	t = NULL;
-	// 	command = readline("minishell= ");
-	// 	if(command == NULL )
-	// 		exit (0);
-	// 	add_history(command);
-	// 	ft_create_tokens(&t, command);
-	// 	ft_print_linked_list(t);
-	// 	free(command);
-	// }
+	while(1)
+	{
+		t = NULL;
+		command = readline("minishell= ");
+		if(command == NULL )
+			exit (0);
+		add_history(command);
+		ft_create_tokens(&t, command);
+		ft_print_linked_list(t);
+		free(command);
+	}
 
 
 
 
 	
-	// t_free *list;
-	// list = NULL;
-	// char *tt = malloc(sizeof(char)* 2000);
-	// ft_add_address(&list, ft_new_address(tt));
-	// int *tdt = malloc(sizeof(int)* 2000);
-	// ft_add_address(&list, ft_new_address(tdt));
-	// t_token *tok =  malloc(sizeof(t_token));
-	// ft_add_address(&list, ft_new_address(tok));
-	// tok->token = malloc(sizeof(char) * 40);
-	// ft_add_address(&list, ft_new_address(tok->token));
-	// while (list)
-	// {
-	// 	t_free *tmp = list;
-	// 	list = list->next; 
-	// 	free(tmp->ptr);
-	// 	free(tmp);
-	// }
+
+	
 }

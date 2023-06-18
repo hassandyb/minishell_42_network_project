@@ -6,7 +6,7 @@
 #    By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/16 14:44:39 by hed-dyb           #+#    #+#              #
-#    Updated: 2023/06/17 21:55:46 by hed-dyb          ###   ########.fr        #
+#    Updated: 2023/06/18 19:02:18 by hed-dyb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ $(NAME) : $(OBJ)
 	$(CC) $(OBJ) -lreadline -o $(NAME)
 	
 clean :
-	$(RM) a$(OBJ)
+	$(RM) $(OBJ)
 
 fclean : clean
 	
