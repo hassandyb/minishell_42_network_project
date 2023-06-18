@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/18 18:58:07 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/18 20:21:11 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,51 +149,24 @@ void ft_create_tokens(t_token **ptr, char *command)
 		i++;
 	}
 }
+//---------------------------
 
 
-t_free *ft_new_address(void *ptr)
-{
-	t_free *node;
 
-	node = malloc(sizeof(t_free));
-	//protection
-	node->ptr = ptr;
-	node->next = NULL;
-	return node;
-
-}
-
-void ft_add_address(t_free **ptr, t_free *new)
-{
-	t_free *temp;
-
-	temp = *ptr;
-	if(*ptr == NULL)
-		*ptr = new;
-	else 
-	{
-		while(temp)
-		{
-			if(temp->next == NULL)
-				break;
-			temp = temp->next;
-		}
-		temp->next = new;	
-	}
-}
-
-void ff(void)
-{
-	system("leaks minishell");
-}
+//----------------
+// void ff(void)
+// {
+// 	system("leaks minishell");
+// }
 
 int main (int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
 	t_token *t;
+	t_free  *f;
 	char *command;
-	atexit(ff);
+	// atexit(ff);
 	while(1)
 	{
 		t = NULL;
@@ -201,7 +174,7 @@ int main (int argc, char **argv)
 		if(command == NULL )
 			exit (0);
 		add_history(command);
-		ft_create_tokens(&t, command);
+		ft_create_tokens(&t, command, &f);
 		ft_print_linked_list(t);
 		free(command);
 	}

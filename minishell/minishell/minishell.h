@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/18 15:54:55 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/18 20:20:57 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ static char* typeNames[] = {
 
 typedef struct s_free
 {
-	void *ptr;
+	void *address;
 	struct s_free *next;
 }t_free;
+
 typedef enum e_type
 {
 	_white_space,
@@ -63,4 +64,8 @@ typedef struct s_token
 
 int ft_is_a_white_space(char c);
 int ft_strlen(char *s);
+void ft_add_address(t_free **ptr, t_free *new);
+void ft_add_t_free_node(t_free **f, t_free *node);
+void ft_create_t_free_node(void *add, t_free *f);
+void ft_free_all(t_free *f);
 #endif
