@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/18 20:21:11 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/18 23:00:21 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,22 @@ void ft_print_linked_list(t_token *t)
 
 
 
-t_token *ft_create_node(t_token *ptr, char *tok, int tp)
+t_token *ft_create_node(char *tok, int type_, t_free **f, char *command)
 {
 	int i;
 	t_token *node;
 
 	i = 0;
 	node = malloc(sizeof(t_token));
-	// protection
-	node->type = tp;
 	node->token = malloc((ft_strlen(tok) + 1) * sizeof(char));
-	//protection
+	if(node == NULL || node->token == NULL)
+	{
+		free (command);
+		ft_free_all(*f);
+		exit(1);
+	}
+	ft_add_t_free(f, ft_create_t_free(node, *f));
+	node->type = type_;
 	while(tok && tok[i])
 	{
 		node->token[i] = tok[i];
@@ -61,14 +66,14 @@ t_token *ft_create_node(t_token *ptr, char *tok, int tp)
 	return node;
 }
 
-void ft_add_back(t_token **ptr, t_token *node)
+void ft_add_back(t_token **t, t_token *node)
 {
 	t_token *temp;
 	
-	temp = *ptr;
-	if(*ptr == NULL)
+	temp = *t;
+	if(*t == NULL)
 	{
-		*ptr = node;
+		*t = node;
 	}
 	else
 	{
@@ -83,15 +88,15 @@ void ft_add_back(t_token **ptr, t_token *node)
 	}
 }
 
-int ft_case_space_or_pipe(t_token **ptr, char *command, int i)
+int ft_case_space_or_pipe(t_token **t, char *command, int i, t_free **f)
 {
 	t_token *node;
 
 	node = NULL;
 	if (ft_is_a_white_space(command[i]) == 1)
 	{
-		node = ft_create_node(*ptr, " ", _white_space);
-		ft_add_back(ptr, node);
+		node = ft_create_node(" ", _white_space, f, command);
+		ft_add_back(t, node);
 		while(command[i])
 		{
 			if(command[i + 1] == '\0' || ft_is_a_white_space(command[i + 1]) == 0)
@@ -102,38 +107,39 @@ int ft_case_space_or_pipe(t_token **ptr, char *command, int i)
 	}
 	if (command[i] == '|')
 	{
-		node = ft_create_node(*ptr, "|", _pipe);
-		ft_add_back(ptr, node);
+		node = ft_create_node("|", _pipe, f, command);
+		ft_add_back(t, node);
 		return i;
 	}
 	return i;
 }
 
-int ft_case_redirections(t_token **ptr, char *command, int i)
+int ft_case_redirections(t_token **t, char *command, int i, t_free **f)
 {
 	t_token *node;
 
 	node = NULL;
 	if(command[i] == '>' && command[i + 1] == '>')
 	{
-		node = ft_create_node(*ptr, ">>", _append_output_re);
+		node = ft_create_node(">>", _append_output_re, f, command);
 		i++;;
 	}
 	else if(command[i] == '<' && command[i + 1] == '<')
 	{
-		node = ft_create_node(*ptr, "<<", _here_document);
+		node = ft_create_node("<<", _here_document, f, command);
 		i++;;
 	}
 	else if(command[i] == '>')
-		node = ft_create_node(*ptr, ">", _output_re);
+		node = ft_create_node(">", _output_re, f, command);
 	else if(command[i] == '<')
-		node = ft_create_node(*ptr, "<", _input_re);
-	ft_add_back(ptr, node);
+		node = ft_create_node("<", _input_re, f, command);
+	ft_add_back(t, node);
 	return i;
 
 }
 
-void ft_create_tokens(t_token **ptr, char *command)
+
+void ft_create_tokens(t_token **t, char *command, t_free **f)
 {
 	int i;
 
@@ -142,9 +148,9 @@ void ft_create_tokens(t_token **ptr, char *command)
 	{
 		// printf("%d----\n", i);
 		if (ft_is_a_white_space(command[i]) == 1 || command[i] == '|')
-			i = ft_case_space_or_pipe(ptr, command, i);
+			i = ft_case_space_or_pipe(t, command, i, f);
 		else if(command[i] == '<' || command[i] == '>')
-			i = ft_case_redirections(ptr, command, i);
+			i = ft_case_redirections(t, command, i, f);
 
 		i++;
 	}
@@ -161,12 +167,14 @@ void ft_create_tokens(t_token **ptr, char *command)
 
 int main (int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
 	t_token *t;
 	t_free  *f;
 	char *command;
+
+	if(argc != 1)
+		exit (0);
 	// atexit(ff);
+	f = NULL;
 	while(1)
 	{
 		t = NULL;

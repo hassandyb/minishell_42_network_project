@@ -6,38 +6,34 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 20:21:36 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/18 20:22:05 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/18 22:57:15 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-void ft_add_address(t_free **ptr, t_free *new)
+void *ft_create_t_free(void *add, t_free *f)
 {
-	t_free *temp;
+	t_free *node;
 
-	temp = *ptr;
-	if(*ptr == NULL)
-		*ptr = new;
-	else 
+	node = malloc(sizeof(t_free));
+	if(node == NULL)
 	{
-		while(temp)
-		{
-			if(temp->next == NULL)
-				break;
-			temp = temp->next;
-		}
-		temp->next = new;	
+		ft_free_all(f);
+		exit (1);
 	}
+	node->address = add;
+	node->next = NULL;
+	return node;
 }
 
-void ft_add_t_free_node(t_free **f, t_free *node)
+void ft_add_t_free(t_free **f, t_free *node)
 {
 	t_free *temp;
 
+	temp = *f;
 	if(*f == NULL)
-		f = temp;
+		*f = node;
 	else
 	{
 		while(temp)
@@ -50,26 +46,22 @@ void ft_add_t_free_node(t_free **f, t_free *node)
 	}
 }
 
-void ft_create_t_free_node(void *add, t_free *f)
-{
-	t_free *node;
-
-	node = malloc(sizeof(t_free));
-	if(node == NULL)
-		ft_free_all(f);
-	node->address = add;
-	node->next = NULL;
-	return node;
-}
-
 void ft_free_all(t_free *f)
 {
 	t_free *node_saver;
-	while(f)
+	while(f != NULL)
 	{
 		node_saver = f;
 		f = f->next;
-		free(node_saver->address);
+		if(node_saver->address != NULL)
+			free(node_saver->address);
 		free(node_saver);
 	}
+
 }
+
+
+
+
+
+

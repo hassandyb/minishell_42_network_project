@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/18 20:20:57 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/18 21:57:52 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,14 @@ typedef struct s_token
 	
 }t_token;
 
+//tokenizing functions
 int ft_is_a_white_space(char c);
 int ft_strlen(char *s);
 void ft_add_address(t_free **ptr, t_free *new);
-void ft_add_t_free_node(t_free **f, t_free *node);
-void ft_create_t_free_node(void *add, t_free *f);
+
+//free functions
+void ft_add_t_free(t_free **f, t_free *node);
+void *ft_create_t_free(void *add, t_free *f);
 void ft_free_all(t_free *f);
 #endif
+
