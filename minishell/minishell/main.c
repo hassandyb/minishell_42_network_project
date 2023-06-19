@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/18 23:00:21 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/19 16:08:04 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,15 @@ void ft_print_linked_list(t_token *t)
 //white space | >> << < > variable ($example) "" '' else = word
 //' '/ | / << / >> / > / <    == bonus no need   && || * ()
 
-
+// char *ft_substr(char *str, int indice, int len)
+// {
+// 	char *result;
+	
+// 	if(str == NULL || 
+// 		return NULL;
+// 	result = malloc((len + 1) * sizeof(char));
+	
+// }
 
 t_token *ft_create_node(char *tok, int type_, t_free **f, char *command)
 {
@@ -138,6 +146,36 @@ int ft_case_redirections(t_token **t, char *command, int i, t_free **f)
 
 }
 
+// $HOME
+// 45678
+
+
+int ft_case_variable(t_token **t, char *command, int i, t_free **f)
+{
+	int j;
+	char *tok;
+	t_token *node;
+	
+	j = i;
+	while(command[i])
+	{
+		if(command[i + 1] == '_' || (command[i + 1] >= '0' && command[i + 1] <= '9') || (command[i + 1] 
+			>= 'a' && command[i + 1] <= 'z') || (command[i + 1] 
+			>= 'A' && command[i + 1] <= 'Z'))
+			i++;
+		else
+			break ;
+	}
+	tok = malloc((i - j + 2) * sizeof(char));
+	if(tok == NULL)
+	{
+		free (command);
+		ft_free_all(*f);
+		exit (1)
+	}
+	node = ft_create_node(ft_substr(command, j, i - j + 1), _variable, f, command);
+	ft_add_back(t, node);
+}
 
 void ft_create_tokens(t_token **t, char *command, t_free **f)
 {
@@ -151,7 +189,9 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 			i = ft_case_space_or_pipe(t, command, i, f);
 		else if(command[i] == '<' || command[i] == '>')
 			i = ft_case_redirections(t, command, i, f);
-
+		else if(command[i] == '$' || command[i] == '\"' || command[i] == '\'')// a variable cannot start with a number.
+			i = ft_case_variable(t, command, i, f);
+		else if
 		i++;
 	}
 }
@@ -170,21 +210,20 @@ int main (int argc, char **argv)
 	t_token *t;
 	t_free  *f;
 	char *command;
-
-	if(argc != 1)
-		exit (0);
+	(void)argv;
 	// atexit(ff);
 	f = NULL;
 	while(1)
 	{
 		t = NULL;
 		command = readline("minishell= ");
-		if(command == NULL )
+		if(command == NULL || argc != 1)
 			exit (0);
 		add_history(command);
 		ft_create_tokens(&t, command, &f);
 		ft_print_linked_list(t);
 		free(command);
+		coomand
 	}
 
 
