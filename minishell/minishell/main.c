@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/19 19:35:22 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/19 20:01:27 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,23 @@ int ft_double_qoute(t_token **t, char *command, int i, t_free **f)
 	return i ;	
 }
 
+// int ft_single_quote(t_token **t,char *command, int i, t_free **f)
+// {
+// 	int start;
+// 	char *tok;
+// 	int j;
+
+// 	j = 0;
+// 	start = i;
+// 	i = ft_char_indice(command, i, '\'');
+// 	tok = malloc((i - start + 2) * sizeof(char));
+// 	ft_protection(tok, command, *f);
+// 	ft_add_t_free(f, ft_create_t_free(tok, *f));
+// 	while(command[j])
+// 	[
+// 		tok
+// 	]
+// }
 
 void ft_create_tokens(t_token **t, char *command, t_free **f)
 {
@@ -254,6 +271,8 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 			i = ft_variable(t, command, i, f);
 		else if(command[i] == '\"')
 			i = ft_double_qoute(t, command, i, f);
+		else if(command[i] == '\'');
+			i = ft_single_quote(t, command, i, f);
 		i++;
 	}
 }
