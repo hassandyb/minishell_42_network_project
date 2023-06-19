@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/19 18:33:12 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/19 19:35:22 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ void ft_print_linked_list(t_token *t)
 // 	result = malloc((len + 1) * sizeof(char));
 	
 // }
+
+void ft_protection(char *to_check, char *command, t_free *f)
+{
+	if(to_check == NULL)
+	{
+		free (command);
+		ft_free_all(f);
+		exit (1);
+	}
+}
 
 t_token *ft_create_node(char *tok, int type_, t_free **f, char *command)
 {
@@ -96,7 +106,7 @@ void ft_add_back(t_token **t, t_token *node)
 	}
 }
 
-int ft_case_space_or_pipe(t_token **t, char *command, int i, t_free **f)
+int ft_space_or_pipe(t_token **t, char *command, int i, t_free **f)
 {
 	t_token *node;
 
@@ -122,7 +132,7 @@ int ft_case_space_or_pipe(t_token **t, char *command, int i, t_free **f)
 	return i;
 }
 
-int ft_case_redirections(t_token **t, char *command, int i, t_free **f)
+int ft_redirections(t_token **t, char *command, int i, t_free **f)
 {
 	t_token *node;
 
@@ -146,9 +156,6 @@ int ft_case_redirections(t_token **t, char *command, int i, t_free **f)
 
 }
 
-// $HOME
-// 45678
-
 int ft_end_of_variable(char *command, int i)
 {
 	while(command[i])
@@ -163,9 +170,7 @@ int ft_end_of_variable(char *command, int i)
 	return i;
 }
 
-// $home
-// 34567
-int ft_case_variable(t_token **t, char *command, int i, t_free **f)
+int ft_variable(t_token **t, char *command, int i, t_free **f)
 {
 	int start;
 	int j;
@@ -175,13 +180,9 @@ int ft_case_variable(t_token **t, char *command, int i, t_free **f)
 	j = 0;
 	start = i;
 	i = ft_end_of_variable(command , i);
+	
 	tok = malloc((i - start + 2) * sizeof(char));
-	if(tok == NULL)
-	{
-		free (command);
-		ft_free_all(*f);
-		exit (1);
-	}
+	ft_protection(tok, command, *f);
 	ft_add_t_free(f, ft_create_t_free(tok, *f));
 	while(command[start])
 	{
@@ -194,8 +195,48 @@ int ft_case_variable(t_token **t, char *command, int i, t_free **f)
 	tok[j + 1] = '\0';
 	node = ft_create_node(tok, _variable, f, command);
 	ft_add_back(t, node);
+	return i ;
+}
+
+int ft_char_indice(char *command, int i, char c)
+{
+	i++;
+	while(command[i])
+	{
+		if(command[i] == c)
+			break;
+		i++;
+	}
 	return i;
 }
+
+int ft_double_qoute(t_token **t, char *command, int i, t_free **f)
+{
+	int start;
+	char *tok;
+	int j;
+	t_token *node;
+
+	j = 0;
+	start = i;
+	i = ft_char_indice(command, i, '"');
+	tok = malloc((i - start + 2) * sizeof(char));
+	ft_protection(tok, command, *f);
+	ft_add_t_free(f, ft_create_t_free(tok, *f));
+	while(command[start])
+	{
+		tok[j] = command[start];
+		if(start == i)
+			break ;
+		j++;
+		start++;
+	}
+	tok[j + 1] = '\0';
+	node = ft_create_node(tok, _double_quote, f, command);
+	ft_add_back(t, node);
+	return i ;	
+}
+
 
 void ft_create_tokens(t_token **t, char *command, t_free **f)
 {
@@ -206,12 +247,13 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 	{
 		// printf("%d----\n", i);
 		if (ft_is_a_white_space(command[i]) == 1 || command[i] == '|')
-			i = ft_case_space_or_pipe(t, command, i, f);
+			i = ft_space_or_pipe(t, command, i, f);
 		else if(command[i] == '<' || command[i] == '>')
-			i = ft_case_redirections(t, command, i, f);
+			i = ft_redirections(t, command, i, f);
 		else if(command[i] == '$')// a variable cannot start with a number.
-			i = ft_case_variable(t, command, i, f);
-		// else if(ft_case)
+			i = ft_variable(t, command, i, f);
+		else if(command[i] == '\"')
+			i = ft_double_qoute(t, command, i, f);
 		i++;
 	}
 }
