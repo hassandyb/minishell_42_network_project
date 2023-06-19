@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/19 18:12:30 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/19 18:33:12 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,8 @@ int ft_end_of_variable(char *command, int i)
 	return i;
 }
 
+// $home
+// 34567
 int ft_case_variable(t_token **t, char *command, int i, t_free **f)
 {
 	int start;
@@ -180,6 +182,7 @@ int ft_case_variable(t_token **t, char *command, int i, t_free **f)
 		ft_free_all(*f);
 		exit (1);
 	}
+	ft_add_t_free(f, ft_create_t_free(tok, *f));
 	while(command[start])
 	{
 		tok[j] = command[start];
@@ -188,7 +191,7 @@ int ft_case_variable(t_token **t, char *command, int i, t_free **f)
 		j++;
 		start++;
 	}
-	tok[i + 1] = '\0';
+	tok[j + 1] = '\0';
 	node = ft_create_node(tok, _variable, f, command);
 	ft_add_back(t, node);
 	return i;
@@ -208,6 +211,7 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 			i = ft_case_redirections(t, command, i, f);
 		else if(command[i] == '$')// a variable cannot start with a number.
 			i = ft_case_variable(t, command, i, f);
+		// else if(ft_case)
 		i++;
 	}
 }
