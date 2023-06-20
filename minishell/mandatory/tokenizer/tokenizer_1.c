@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:49:42 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/20 15:08:48 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/20 23:01:58 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,7 @@ int ft_single_quote(t_token **t,char *command, int i, t_free **f)
 	tok[j + 1] = '\0';
 	node = ft_create_node(tok, _single_quote, f, command);
 	ft_add_back(t, node);
-	
 	return i;
-	
 }
 
 void ft_create_tokens(t_token **t, char *command, t_free **f)
@@ -144,4 +142,5 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 			i = ft_is_a_word(t, command, i, f);
 		i++;
 	}
+	ft_unnecessary_spaces(t);
 }

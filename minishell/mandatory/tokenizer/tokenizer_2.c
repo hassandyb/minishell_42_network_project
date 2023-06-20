@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:13:28 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/20 14:13:46 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/20 23:02:05 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,7 @@ int ft_is_a_word(t_token **t, char *command, int i, t_free **f)
 
 	start = i;
 	j = 0;
-
 	i = ft_end_of_word(command, i);
-
 	tok = malloc((i - start + 2) * sizeof(char));
 	ft_protection(tok, command, *f);
 	ft_add_t_free(f, ft_create_t_free(tok, *f));
