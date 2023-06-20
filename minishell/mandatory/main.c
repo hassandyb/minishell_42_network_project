@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/20 23:05:44 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/20 23:33:15 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,22 +140,21 @@ int main (int argc, char **argv)
 	char *command;
 	(void)argv;
 	// atexit(ff);
-	f = NULL;
+	if(argc != 1)
+		exit (0);
 	while(1)
 	{
-
+		f = NULL;
 		t = NULL;
 		command = readline("minishell= ");
-		if(command == NULL || argc != 1)
+		if(command == NULL)
 			exit (0);
 		add_history(command);
 		ft_create_tokens(&t, command, &f);
 		if(ft_parsing(t) == 0)
 		{
-			// command = NULL;
 			free(command);
 			ft_free_all(f);
-			f = NULL;
 			continue ;
 		}
 		// ft_print_linked_list(t);
