@@ -8,6 +8,10 @@ instaling readline
 
 brew install libreadline-dev
 
+or 
+
+brew install readline
+
 Guide
 https://github.com/madebypixel02/minishell
 

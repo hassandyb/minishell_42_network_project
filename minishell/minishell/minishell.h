@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/18 21:57:52 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/20 12:48:47 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static char* typeNames[] = {
     "_input_re",
     "_double_quote",
     "_single_quote",
-    "_variable",
     "_word"
 };
 
@@ -48,7 +47,6 @@ typedef enum e_type
 	_input_re,//   <
 	_double_quote,//""
 	_single_quote, //''
-	_variable,
 	_word,
 }	t_type;
 
@@ -62,14 +60,30 @@ typedef struct s_token
 	
 }t_token;
 
-//tokenizing functions
+//tokenizer (tokenization) functions
+
+//part 1
+t_token *ft_create_node(char *tok, int type_, t_free **f, char *command);
+void ft_add_back(t_token **t, t_token *node);
+int ft_space_or_pipe(t_token **t, char *command, int i, t_free **f);
+int ft_redirections(t_token **t, char *command, int i, t_free **f);
+int ft_end_of_word(char *command, int i);
+int ft_is_a_word(t_token **t, char *command, int i, t_free **f);
+int ft_char_indice(char *command, int i, char c);
+int ft_double_qoute(t_token **t, char *command, int i, t_free **f);
+int ft_single_quote(t_token **t,char *command, int i, t_free **f);
+void ft_create_tokens(t_token **t, char *command, t_free **f);
+//part 2 remove an neccecery tabs
+
+
 int ft_is_a_white_space(char c);
 int ft_strlen(char *s);
 void ft_add_address(t_free **ptr, t_free *new);
 
-//free functions
+//free/protection functions
 void ft_add_t_free(t_free **f, t_free *node);
 void *ft_create_t_free(void *add, t_free *f);
 void ft_free_all(t_free *f);
+void ft_protection(char *to_check, char *command, t_free *f);
 #endif
 

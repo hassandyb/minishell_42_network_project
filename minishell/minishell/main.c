@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/19 20:01:27 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/20 12:48:51 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,14 @@ void ft_print_linked_list(t_token *t)
 	
 // }
 
-void ft_protection(char *to_check, char *command, t_free *f)
-{
-	if(to_check == NULL)
-	{
-		free (command);
-		ft_free_all(f);
-		exit (1);
-	}
-}
+// tokenizer
+// parcer
+// expander
+// conncater
+// execution
 
+
+// | < > space \0
 t_token *ft_create_node(char *tok, int type_, t_free **f, char *command)
 {
 	int i;
@@ -156,48 +154,6 @@ int ft_redirections(t_token **t, char *command, int i, t_free **f)
 
 }
 
-int ft_end_of_variable(char *command, int i)
-{
-	while(command[i])
-	{
-		if(command[i + 1] == '_' || (command[i + 1] >= '0' && command[i + 1] 
-			<= '9') || (command[i + 1] >= 'a' && command[i + 1] <= 'z') 
-			|| (command[i + 1] >= 'A' && command[i + 1] <= 'Z'))
-				i++;
-		else
-			break ;
-	}
-	return i;
-}
-
-int ft_variable(t_token **t, char *command, int i, t_free **f)
-{
-	int start;
-	int j;
-	char *tok;
-	t_token *node;
-	
-	j = 0;
-	start = i;
-	i = ft_end_of_variable(command , i);
-	
-	tok = malloc((i - start + 2) * sizeof(char));
-	ft_protection(tok, command, *f);
-	ft_add_t_free(f, ft_create_t_free(tok, *f));
-	while(command[start])
-	{
-		tok[j] = command[start];
-		if(start == i)
-			break ;
-		j++;
-		start++;
-	}
-	tok[j + 1] = '\0';
-	node = ft_create_node(tok, _variable, f, command);
-	ft_add_back(t, node);
-	return i ;
-}
-
 int ft_char_indice(char *command, int i, char c)
 {
 	i++;
@@ -237,23 +193,76 @@ int ft_double_qoute(t_token **t, char *command, int i, t_free **f)
 	return i ;	
 }
 
-// int ft_single_quote(t_token **t,char *command, int i, t_free **f)
-// {
-// 	int start;
-// 	char *tok;
-// 	int j;
+int ft_single_quote(t_token **t,char *command, int i, t_free **f)
+{
+	t_token *node;
+	int start;
+	char *tok;
+	int j;
 
-// 	j = 0;
-// 	start = i;
-// 	i = ft_char_indice(command, i, '\'');
-// 	tok = malloc((i - start + 2) * sizeof(char));
-// 	ft_protection(tok, command, *f);
-// 	ft_add_t_free(f, ft_create_t_free(tok, *f));
-// 	while(command[j])
-// 	[
-// 		tok
-// 	]
-// }
+	j = 0;
+	start = i;
+	i = ft_char_indice(command, i, '\'');
+	tok = malloc((i - start + 2) * sizeof(char));
+	ft_protection(tok, command, *f);
+	ft_add_t_free(f, ft_create_t_free(tok, *f));
+	while(command[start])
+	{
+		tok[j] = command[start];
+		if(start == i)
+			break ;
+		j++;
+		start++;
+	}
+	tok[j + 1] = '\0';
+	node = ft_create_node(tok, _single_quote, f, command);
+	ft_add_back(t, node);
+	
+	return i;
+	
+}
+
+int ft_end_of_word(char *command, int i)
+{
+	while(command[i])
+	{
+		if(command[i + 1] == '\0' || command[i + 1] == '|' || command[i + 1] == '<'
+			|| command[i + 1] == '>' || ft_is_a_white_space(command[i + 1]) == 1)
+				break ;
+		i++;
+	}
+	return i;
+}
+
+int ft_is_a_word(t_token **t, char *command, int i, t_free **f)
+{
+	t_token *node;
+	char *tok;
+	int j;
+	int start ;
+
+	start = i;
+	j = 0;
+
+	i = ft_end_of_word(command, i);
+
+	tok = malloc((i - start + 2) * sizeof(char));
+	ft_protection(tok, command, *f);
+	ft_add_t_free(f, ft_create_t_free(tok, *f));
+	while(command[start])
+	{
+		tok[j] = command[start];
+		if(start == i)
+			break ;
+		j++;
+		start++;
+	}
+
+	tok[j + 1] = '\0';
+	node = ft_create_node(tok, _word, f, command);
+	ft_add_back(t, node);
+	return i;
+}
 
 void ft_create_tokens(t_token **t, char *command, t_free **f)
 {
@@ -262,20 +271,25 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 	i = 0;
 	while(command && command[i])
 	{
-		// printf("%d----\n", i);
+		if(command[0] == '\0')
+		{
+			printf("empty comand\n");
+			//do something
+		}
 		if (ft_is_a_white_space(command[i]) == 1 || command[i] == '|')
 			i = ft_space_or_pipe(t, command, i, f);
 		else if(command[i] == '<' || command[i] == '>')
 			i = ft_redirections(t, command, i, f);
-		else if(command[i] == '$')// a variable cannot start with a number.
-			i = ft_variable(t, command, i, f);
 		else if(command[i] == '\"')
 			i = ft_double_qoute(t, command, i, f);
-		else if(command[i] == '\'');
+		else if(command[i] == '\'')
 			i = ft_single_quote(t, command, i, f);
+		else
+			i = ft_is_a_word(t, command, i, f);
 		i++;
 	}
 }
+
 //---------------------------
 
 
@@ -302,6 +316,7 @@ int main (int argc, char **argv)
 			exit (0);
 		add_history(command);
 		ft_create_tokens(&t, command, &f);
+		ft_unnecessary_spaces(&t);
 		ft_print_linked_list(t);
 		free(command);
 
