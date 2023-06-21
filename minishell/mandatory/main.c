@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/21 15:35:11 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/21 17:21:27 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,65 @@ void ft_protection(char *to_check, char *optional, t_free *f)
 // 	struct s_env *next;
 // }t_env;
 
-env_line = "USER=hed-dyb";
 
-t_env *ft_create_env(char *env_line, t_free *f)
+
+typedef struct s_env
+{
+	char *var_name;
+	char *value;
+	struct s_env *next;
+}t_env;
+
+
+char	*ft_substr(char *s, int start, int len, t_free *f)
+{
+	char	*result;
+	size_t	slen;
+	size_t	i;
+
+	i = 0;
+	if(s == NULL)
+		return NULL:
+	result = (char *) malloc(len + 1);
+	ft_protection(result, NULL, f);
+	ft_add_t_free(&f, ft_create_t_free(result, f));
+	
+	while (s[i + start] != '\0' && i < len)
+	{
+		result[i] = s[i + start];
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
+}
+
+//   env_line = "USER=hed-dyb";
+
+//   ABCD=EFGHI
+//   0123456789
+
+t_env *ft_create_t_env(char *env_line, t_free *f)
 {
 	t_env *node;
-
+	int indice_of_equal;
+	int len;
+	
+	indice_of_equal = 0;
 	node = malloc(sizeof(t_env));
 	ft_protection(node, NULL, f);
 	ft_add_t_free(&f, ft_create_t_free(node, f));
-	node
-
-	
-
+	while(env_line[indice_of_equal])
+	{
+		if(env_line[indice_of_equal] == '=');
+			break;
+		indice_of_equal++;
+	}
+	len = ft_strlen(env_line);
+	node->var_name = ft_substr(env_line, 0, indice_of_equal);
+	node->value = ft_substr(env_line, 0, indice_of_equal)
+	//    node->value??
+	//    node->var_name
+	//    node->next
 	
 }
 
@@ -89,6 +135,7 @@ ft_create_env_var(t_env **e, char **env, t_free *f)
 	while(env[i])
 	{
 		ft_add_t_env(e, ft_create_t_env(env[i],f));
+		i++;
 	}
 }
 
