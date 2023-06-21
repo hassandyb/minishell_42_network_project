@@ -61,6 +61,7 @@
 // 	ptr = malloc (7 * sizeof(char));
 // 	exit(0);
 // }
+// void ft_leaks (){system("leaks a.out");}
 
 // int main ()
 // {
@@ -81,30 +82,6 @@
 // Since the ft_leaks function is not executed, the system("leaks a.out") command, which checks for memory leaks, is not invoked. Therefore, you do not see any memory leaks reported.
 
 // It's important to note that although calling exit(0) can prevent memory leak detection in this specific scenario, it is not a recommended solution. Proper memory management, including freeing allocated memory, is crucial in C programs to avoid memory leaks.
-
-
-
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-void ft_leaks (){system("leaks a.out");}
-
-
-int main ()
-{
-	char **p;
-	char *ptr;
-
-	p = malloc(5 * sizeof(char *));
-	ptr = malloc (7 * sizeof(char));
-	atexit(ft_leaks);
-
-	exit(1);
-}
-
 
 
 

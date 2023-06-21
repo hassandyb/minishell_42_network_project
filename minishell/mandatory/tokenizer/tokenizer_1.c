@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:49:42 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/20 23:01:58 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/21 15:20:36 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,6 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 		i++;
 	while(command && command[i])
 	{
-		if(command[0] == '\0')
-		{
-			printf("empty comand\n");
-			//do something
-		}
 		if (ft_is_a_white_space(command[i]) == 1 || command[i] == '|')
 			i = ft_space_or_pipe(t, command, i, f);
 		else if(command[i] == '<' || command[i] == '>')
@@ -143,4 +138,6 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 		i++;
 	}
 	ft_unnecessary_spaces(t);
+	free(command);
+	command == NULL;
 }
