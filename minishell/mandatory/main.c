@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/21 12:46:30 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/21 13:03:30 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void ft_print_linked_list(t_token *t)
 
 t_env *ft_create_env(char *env_line)
 {
-	
+	// t_env
 }
 
 ft_create_env_var(t_env **e, char **env, t_free *f)
