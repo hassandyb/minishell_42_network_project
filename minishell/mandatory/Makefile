@@ -6,7 +6,7 @@
 #    By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/16 14:44:39 by hed-dyb           #+#    #+#              #
-#    Updated: 2023/06/20 15:42:27 by hed-dyb          ###   ########.fr        #
+#    Updated: 2023/06/21 11:57:02 by hed-dyb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,12 @@ NAME = minishell
 CC = cc 
 RM = rm -f
 FLAGS =  -Wall -Werror -Wextra -g -fsanitize=address
-
+PARSER = parser.c
 TOKENIZER = $(addprefix tokenizer/, tokenizer_1.c tokenizer_2.c spaces.c)
 
 TOOLS = $(addprefix tools/, protection.c utils_1.c)
 
-FILES = main.c $(TOKENIZER) $(TOOLS)
+FILES = main.c $(TOKENIZER) $(TOOLS) $(PARSER)
 
 OBJ = $(FILES:%.c=%.o)
 

@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/20 15:40:02 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/21 12:21:37 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ typedef struct s_token
 	
 }t_token;
 
+
+typedef struct s_env
+{
+	char *var_name;
+	char *value;
+	struct s_env *next;
+}t_env;
 //tokenizer (tokenization) functions
 
 //part 1
@@ -77,6 +84,11 @@ void ft_create_tokens(t_token **t, char *command, t_free **f);
 int ft_special_char (t_token *node);
 void ft_unnecessary_spaces(t_token **t);
 
+
+// parser
+int ft_is_a_redirection(t_type type);
+int ft_check_close(t_token *t);
+int ft_parsing(t_token *t);
 
 
 //utils
