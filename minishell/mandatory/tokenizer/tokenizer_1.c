@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:49:42 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/21 15:20:36 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/22 11:52:57 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,5 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 	}
 	ft_unnecessary_spaces(t);
 	free(command);
-	command == NULL;
+	command = NULL;
 }

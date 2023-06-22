@@ -6,7 +6,7 @@
 #    By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/16 14:44:39 by hed-dyb           #+#    #+#              #
-#    Updated: 2023/06/21 15:28:42 by hed-dyb          ###   ########.fr        #
+#    Updated: 2023/06/22 11:45:18 by hed-dyb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ all : $(NAME)
 	$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) -fsanitize=address -lreadline $(OBJ)  -o $(NAME)
+	$(CC) $(FLAGS) -lreadline $(OBJ)  -o $(NAME)
 	
 clean :
 	$(RM) $(OBJ)
