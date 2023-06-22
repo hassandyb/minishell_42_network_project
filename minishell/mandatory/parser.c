@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:34 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/22 11:28:33 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/22 17:30:10 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int ft_unclosed_quote(char *tok)
 	
 	
 }
+
 int ft_parsing(t_token *t)
 {
 	if(t->type == _pipe)// pipe in the begining
@@ -72,6 +73,9 @@ int ft_parsing(t_token *t)
 			return (printf("syntax error\n"), 0);
 		if(t->type && ft_unclosed_quote(t->token) == 1)
 			return (printf("syntax error\n"), 0);
+		// if(t->type && ft_unclosed_quote(t->token) == 1)
+		// 	return (printf("syntax error\n"), 0);
+		
 		t = t->next;
 	}
 	return (1);

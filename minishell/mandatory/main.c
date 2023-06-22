@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/22 12:36:33 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/22 17:32:25 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,26 +142,58 @@ void ft_add_back_t_env(t_env **e, t_env *node)
 	temp->next = node;
 }
 //---------------------------------
+// char *ft_strjoin(char *new_token, char *to_add, t_free *f)
+// {
+// 	int i;
+// 	int j;
+// 	char *result;
+	
+// 	if(new_token == NULL)
+// 	{
+// 		new_token = malloc(1);
+// 		new_token[0]= '\0';
+// 	}
+// 	i = -1;
+// 	result = malloc((ft_strlen(new_token) + ft_strlen(to_add) + 1));
+// 	ft_protection(result, NULL, f);
+// 	while(new_token[++i])
+// 		result[i] = new_token[i];
+// 	j = 0;
+// 	while(to_add[j])
+// 	{
+// 		result[i] = to_add[j];
+// 		i++;
+// 		j++;
+// 	}
+// 	result[i] = '\0';
+// 	free(new_token);
+// 	return result;
+// }
 
-void ft_expand_word(t_token *node, t_env *e)
+// void ft_expand_word(t_token *node, t_env *e, t_free *f)
+// {
+// 	int i =0;
+// 	// count ++;
+// 	char *new_token;
+// 	new_token = NULL;
+
+// }
+//-----------------------------
+//first char should be _ or alphabet up and lower
+/// sencend third  _ or alphabet up and lower or number
+
+
+void ft_replace(t_token *node, t_env *e, t_free *f)
 {
-	int i =0;
-	// count ++;
 	char *new_token;
+	int i;
+
+	i = 0;
 	while(node->token[i])
 	{
-		if(node->token[i] == '\'')
-			i++;
-		else if(node->token[i] == '$')
-		{
-			if(ft_var_exist(node->token, i, e) == 1)// in var exest you can compare the the var with the env list also if there is a match , the var shor end or there a is char who break it like any thing else deferent that number upper loer and under schoore
-			{
-				i = ft_replace
-			}
-				
-		}
-		else
-			new_token = ft_strjoin(new_token, &node->token[i]);
+		if(node->token[i] == '$' && (node->token[i + 1] == '_' || ft_is_alpha(node->token[i + 1]) == 1))
+		 //node->token[i + 1] &&  (node->token[i + 1] == '_' || ft_is_alpha )
+			//node->token = ft_  replace aaa$HOME+aa => aaa $HOME +aa ==>serach for home value ==>if it exit rplace home value =>>join all strings free.. free
 		i++;
 	}
 }
@@ -180,16 +212,11 @@ void ft_expander(t_env **e, char **env, t_token **t, t_free *f)
 	}
 	while(temp)
 	{
-		if(temp->type == _word)
-			ft_expand_word(temp, *e);
-		// else if(temp->type == _double_quote)
-		// 	ft....
-		// else if(temp->type == _single_quote)
-		// 	ft....
-	
-		
+		if(temp->type == _word || temp->type == _double_quote)
+			ft_replace(temp, *e, f);
 		temp = temp->next;
 	}
+
 }
 
 
@@ -218,9 +245,9 @@ int main (int argc, char **argv, char  **env)
 			ft_free_all(f);
 			continue ;
 		}
-					ft_print_t_env_linked_list(e);
-		ft_expander(&e, env, &t, f);
-					ft_print_t_env_linked_list(e);
+		// ft_print_t_token_linked_list(t);
+		// ft_expander(&e, env, &t, f);
+
 	}
 	ft_free_all(f);	
 }

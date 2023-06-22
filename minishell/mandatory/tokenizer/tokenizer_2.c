@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:13:28 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/21 14:38:33 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/22 15:59:59 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int ft_end_of_word(char *command, int i)
 	while(command[i])
 	{
 		if(command[i + 1] == '\0' || command[i + 1] == '|' || command[i + 1] == '<'
-			|| command[i + 1] == '>' || ft_is_a_white_space(command[i + 1]) == 1)
+			|| command[i + 1] == '>' || ft_is_a_white_space(command[i + 1]) == 1 
+				|| command[i + 1] == '\''  || command[i + 1] == '\"')
 				break ;
 		i++;
 	}
