@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/23 20:50:08 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/23 21:54:55 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,7 @@ void ft_add_back_t_env(t_env **e, t_env *node)
 
 
 // ft_special_cases()
-	// if(node->token[begin + 1] == '\0')
-	// 	break ;
+	
 	// if(node->token[begin + 1] == '_' && node->token[begin + 2] == '\0')
 	// {
 	// 	//do something;
@@ -197,29 +196,41 @@ void ft_begin_and_end(char *token, int *begin, int *end)
 		i++;
 	*end = i - 1;
 }
-//   abc$HOME
-//   012345678
 
-// begin 3   end == 7  7 - 3 = 4
+char *ft_strdup(char *str, t_free *f)
+{
+	int i;
+	char *copy;
+	
+	if(str == NULL)
+		return (NULL);
+	copy = malloc((ft_strlen(str) + 1) * sizeof(char));
+	ft_protection(copy, NULL, f);
+	ft_add_t_free(&f, ft_create_t_free(copy, f));
+	i = 0;
+	while(str[i])
+	{
+		copy[i] = str[i];	
+		i++;
+	}
+	copy[i] = '\0';
+	return (copy);
+}
 
-// strlen = 12 - 7 = 5
-// 8 - 7 -1 = 0
-
-
-char *ft_get_var_value(t_env *e, char *var)
+char *ft_get_var_value(t_env *e, char *var, t_free *f)
 {
 	int i;
 
-	i = 0;
 	while(e)
 	{
-		while(e->var_name[i] && var[i] && e->var_name[i] == var[i] )
+		i = 0;
+		while((e->var_name[i] && var[i]) && e->var_name[i] == var[i] )
 			i++;
 		if(ft_strlen(var) == i &&  ft_strlen(e->var_name) == i)
 			return(e->value);
 		e = e->next;
 	}
-	return (var);
+	return(ft_strdup("", f));
 }
 
 char *ft_strjoin(char *s1, char *s2, t_free *f)
@@ -254,26 +265,19 @@ void ft_replace(t_token *node,t_env *e, t_free *f)
 
 	char *var_value;
 	char *befor;
-	// char *after;
+	char *after;
 	while(ft_find_char(node->token, '$') == 1)
 	{
 		ft_begin_and_end(node->token, &begin, &end);
 
 		// ft_special_cases()
 		befor = ft_substr(node->token, 0, begin, f);
-		var_value = ft_get_var_value(e, ft_substr(node->token, begin + 1, end - begin, f));
+		if(node->token[begin + 1] == '\0' || node->token[begin + 1] == '"')
+			break ;
+		var_value = ft_get_var_value(e, ft_substr(node->token, begin + 1, end - begin, f), f);
 		befor = ft_strjoin(befor, var_value, f);
-
-	
-
-
-
-		
-		printf("%s\n", befor);
-		break;
-		// after = ft_substr(node->token, end + 1, ft_strlen(node->token) - end - 1);
-		// node->token = ft_strjoin(befor, after);
-		
+		after = ft_substr(node->token, end + 1, ft_strlen(node->token) - end - 1, f);
+		node->token = ft_strjoin(befor, after, f);
 		// if(ft_var_cases(node->token, '$', i) == 1 ) // var santax not valid
 	}
 
@@ -330,9 +334,9 @@ int main (int argc, char **argv, char  **env)
 			ft_free_all(f);
 			continue ;
 		}
-				// ft_print_t_token_linked_list(t);
+				ft_print_t_token_linked_list(t);
 		ft_expander(&e, env, &t, f);
-				// ft_print_t_token_linked_list(t);
+				ft_print_t_token_linked_list(t);
 				// ft_print_t_env_linked_list(e);
 
 	}
