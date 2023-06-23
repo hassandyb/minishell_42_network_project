@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/23 15:38:05 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/23 20:50:08 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*ft_substr(char *s, int start, int len, t_free *f)
 	i = 0;
 	if(s == NULL )
 		return NULL;
+	
 	result = (char *) malloc(len + 1);
 	ft_protection(result, NULL, f);
 	ft_add_t_free(&f, ft_create_t_free(result, f));
@@ -139,36 +140,139 @@ void ft_add_back_t_env(t_env **e, t_env *node)
 // 25 ==> COLORTERM      truecolor
 
 
+// ft_special_cases()
+	// if(node->token[begin + 1] == '\0')
+	// 	break ;
+	// if(node->token[begin + 1] == '_' && node->token[begin + 2] == '\0')
+	// {
+	// 	//do something;
+	// }
+	// if(node->token[begin + 1] == '_' && node->token[begin + 2] == '?')
+	// {
+	// 	//do something;
+	// }
+	//if()  dollar then a char who is not valid directly ...
 
-
-
+int ft_islnum(char c)
+{
+	if(c >= '0' && c <= '9')
+		return (1);
+	if(c >= 'a' && c <= 'z')
+		return (1);
+	if(c >= 'A' && c <= 'Z')
+		return (1);
+	return (0);
+}
 
 int ft_find_char(char *str, char c)
 {
-	//...
+	int i;
+
+	i = 0;
+	while(str && str[i])
+	{
+		if(str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-//   abc$HOME+
+void ft_begin_and_end(char *token, int *begin, int *end)
+{
+	int i;
+
+	i = 0;
+	while(token && token[i])
+	{
+		if(token[i] == '$')
+		{
+			*begin = i;
+			i++;
+			break ;
+		}
+		i++;
+	}
+	while(token && token[i] && (ft_islnum(token[i]) == 1 || token[i] == '_'))
+		i++;
+	*end = i - 1;
+}
+//   abc$HOME
 //   012345678
 
 // begin 3   end == 7  7 - 3 = 4
+
+// strlen = 12 - 7 = 5
+// 8 - 7 -1 = 0
+
+
+char *ft_get_var_value(t_env *e, char *var)
+{
+	int i;
+
+	i = 0;
+	while(e)
+	{
+		while(e->var_name[i] && var[i] && e->var_name[i] == var[i] )
+			i++;
+		if(ft_strlen(var) == i &&  ft_strlen(e->var_name) == i)
+			return(e->value);
+		e = e->next;
+	}
+	return (var);
+}
+
+char *ft_strjoin(char *s1, char *s2, t_free *f)
+{
+	int i;
+	int j;
+	char *result;
+	i = -1;
+	j = 0;
+	if(!s1 || !s2)
+		return (NULL);
+	result = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	ft_protection(result, NULL, f);
+	ft_add_t_free(&f, ft_create_t_free(result, f));
+	while(s1[++i])
+		result[i] = s1[i];
+	while(s2[j])
+	{
+		result[i] = s2[j];
+		i++;
+		j++;
+	}
+	result[i] = '\0';
+	return (result);
+}
+
 void ft_replace(t_token *node,t_env *e, t_free *f)
 {
 	int begin = 0;
 	int end = 0;
+	(void)e;
+
 	char *var_value;
 	char *befor;
-	char *after;
+	// char *after;
 	while(ft_find_char(node->token, '$') == 1)
 	{
 		ft_begin_and_end(node->token, &begin, &end);
-		if(node->token[begin + 1] == '\0')
-			break ;
+
+		// ft_special_cases()
 		befor = ft_substr(node->token, 0, begin, f);
 		var_value = ft_get_var_value(e, ft_substr(node->token, begin + 1, end - begin, f));
 		befor = ft_strjoin(befor, var_value, f);
-		after = 
-		node->token = ft_strjoin(befor, after);
+
+	
+
+
+
+		
+		printf("%s\n", befor);
+		break;
+		// after = ft_substr(node->token, end + 1, ft_strlen(node->token) - end - 1);
+		// node->token = ft_strjoin(befor, after);
 		
 		// if(ft_var_cases(node->token, '$', i) == 1 ) // var santax not valid
 	}
@@ -193,7 +297,7 @@ void ft_expander(t_env **e, char **env, t_token **t, t_free *f)
 	{
 		if(temp->type == _word || temp->type == _double_quote)
 		{
-			// ft_replace(temp, *e, f);
+			ft_replace(temp, *e, f);
 		}
 		temp = temp->next;
 	}
@@ -229,7 +333,7 @@ int main (int argc, char **argv, char  **env)
 				// ft_print_t_token_linked_list(t);
 		ft_expander(&e, env, &t, f);
 				// ft_print_t_token_linked_list(t);
-				ft_print_t_env_linked_list(e);
+				// ft_print_t_env_linked_list(e);
 
 	}
 	ft_free_all(f);	
