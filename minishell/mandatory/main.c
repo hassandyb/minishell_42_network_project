@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/23 21:54:55 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/24 13:39:21 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,12 @@ void ft_add_back_t_env(t_env **e, t_env *node)
 	// 	//do something;
 	// }
 	//if()  dollar then a char who is not valid directly ...
+int ft_isalpha(char c)
+{
+	if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= "Z"))
+		return (1);
+	return (0);
+}
 
 int ft_islnum(char c)
 {
@@ -220,7 +226,8 @@ char *ft_strdup(char *str, t_free *f)
 char *ft_get_var_value(t_env *e, char *var, t_free *f)
 {
 	int i;
-
+	
+	
 	while(e)
 	{
 		i = 0;
@@ -257,6 +264,12 @@ char *ft_strjoin(char *s1, char *s2, t_free *f)
 	return (result);
 }
 
+
+char *ft_special_cases(char *token, int begin, int end, f)
+{
+	if(token[])// if i have a number after
+}
+
 void ft_replace(t_token *node,t_env *e, t_free *f)
 {
 	int begin = 0;
@@ -270,11 +283,14 @@ void ft_replace(t_token *node,t_env *e, t_free *f)
 	{
 		ft_begin_and_end(node->token, &begin, &end);
 
-		// ft_special_cases()
 		befor = ft_substr(node->token, 0, begin, f);
 		if(node->token[begin + 1] == '\0' || node->token[begin + 1] == '"')
 			break ;
-		var_value = ft_get_var_value(e, ft_substr(node->token, begin + 1, end - begin, f), f);
+		if(node->token[begin + 1] == '\0' || ft_isalpha(node->token[begin + 1]) == 1)
+			var_value = ft_get_var_value(e, ft_substr(node->token, begin + 1, end - begin, f), f);
+		else
+			var_value = ft_special_cases(node->token, begin, end, f);
+			
 		befor = ft_strjoin(befor, var_value, f);
 		after = ft_substr(node->token, end + 1, ft_strlen(node->token) - end - 1, f);
 		node->token = ft_strjoin(befor, after, f);
