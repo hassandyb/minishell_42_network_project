@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:34 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/22 17:30:10 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/24 16:29:43 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int ft_unclosed_quote(char *tok)
 	
 	
 }
+
+// redirections must be followed by  a token(D_QUOTES, S_QUOTES, WORD, DOLLAR)
 
 int ft_parsing(t_token *t)
 {

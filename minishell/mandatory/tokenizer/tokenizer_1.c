@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:49:42 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/22 11:52:57 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/24 16:02:42 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 			i = ft_double_qoute(t, command, i, f);
 		else if(command[i] == '\'')
 			i = ft_single_quote(t, command, i, f);
+		// else if(command[i] == '$' && match_regex())
+		// 	i = ft_single_quote(t, command, i, f);
 		else
 			i = ft_is_a_word(t, command, i, f);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 20:21:36 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/22 13:58:51 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/24 16:14:24 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void ft_add_t_free(t_free **f, t_free *node)
 		*f = node;
 	else
 	{
-		while(temp)
+		while(temp->next)
 		{
 			if(temp->next == NULL)
 				break ;

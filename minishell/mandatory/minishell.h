@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/24 13:14:45 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/24 16:06:23 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
 
 static char* typeNames[] = {
     "_white_space",

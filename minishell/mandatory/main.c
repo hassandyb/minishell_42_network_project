@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/24 13:39:21 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/24 16:32:03 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void ft_add_back_t_env(t_env **e, t_env *node)
 	//if()  dollar then a char who is not valid directly ...
 int ft_isalpha(char c)
 {
-	if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= "Z"))
+	if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
 	return (0);
 }
@@ -165,6 +165,13 @@ int ft_islnum(char c)
 	if(c >= 'a' && c <= 'z')
 		return (1);
 	if(c >= 'A' && c <= 'Z')
+		return (1);
+	return (0);
+}
+
+int match_regex(char c)
+{
+	if (c == '_' || ft_isalpha(c))
 		return (1);
 	return (0);
 }
@@ -264,11 +271,28 @@ char *ft_strjoin(char *s1, char *s2, t_free *f)
 	return (result);
 }
 
+//   aa$0HOME 
+//   01234567
 
-char *ft_special_cases(char *token, int begin, int end, f)
-{
-	if(token[])// if i have a number after
-}
+// 7 - 2 = 5
+
+// end = 5 gegin 0 ==>5
+//   012345
+//   want 6, 7 - 0 -1
+// char *ft_special_cases(char *tok, int begin, int end, t_free *f)
+// {
+
+// 	if(tok[begin + 1] >= '0' && tok[begin + 1] <= '9')// if i have a number after
+// 		return (ft_substr(tok, begin + 2, end - begin - 1, f));
+// 	else if( tok[begin + 1] == '?')
+// 	{
+// 		tok[begin + 1] = '0';
+// 		return (ft_substr(tok, begin + 1, end - begin, f));
+// 	}
+// 	else
+
+// 	return (NULL);
+// }
 
 void ft_replace(t_token *node,t_env *e, t_free *f)
 {
@@ -279,25 +303,15 @@ void ft_replace(t_token *node,t_env *e, t_free *f)
 	char *var_value;
 	char *befor;
 	char *after;
-	while(ft_find_char(node->token, '$') == 1)
+	while (ft_find_char(node->token, '$') == 1 && match_regex(node->token[begin + 1]))
 	{
 		ft_begin_and_end(node->token, &begin, &end);
-
 		befor = ft_substr(node->token, 0, begin, f);
-		if(node->token[begin + 1] == '\0' || node->token[begin + 1] == '"')
-			break ;
-		if(node->token[begin + 1] == '\0' || ft_isalpha(node->token[begin + 1]) == 1)
-			var_value = ft_get_var_value(e, ft_substr(node->token, begin + 1, end - begin, f), f);
-		else
-			var_value = ft_special_cases(node->token, begin, end, f);
-			
+		var_value = ft_get_var_value(e, ft_substr(node->token, begin + 1, end - begin, f), f);
 		befor = ft_strjoin(befor, var_value, f);
 		after = ft_substr(node->token, end + 1, ft_strlen(node->token) - end - 1, f);
 		node->token = ft_strjoin(befor, after, f);
-		// if(ft_var_cases(node->token, '$', i) == 1 ) // var santax not valid
 	}
-
-	
 }
 
 void ft_expander(t_env **e, char **env, t_token **t, t_free *f)
