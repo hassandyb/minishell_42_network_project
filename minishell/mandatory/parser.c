@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:34 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/24 16:29:43 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/24 18:40:08 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int ft_unclosed_quote(char *tok)
 	
 }
 
-// redirections must be followed by  a token(D_QUOTES, S_QUOTES, WORD, DOLLAR)
-
 int ft_parsing(t_token *t)
 {
 	if(t->type == _pipe)// pipe in the begining
@@ -65,7 +63,7 @@ int ft_parsing(t_token *t)
 	{
 		if(t->next && t->type == _pipe  && t->next->type == _pipe)// case ||||
 			return (printf("syntax error\n"), 0);
-		if(t->next && ft_is_a_redirection(t->type) == 1 && t->next->type == _pipe)// redirection then pipe
+		if(t->next && ft_is_a_redirection(t->type) == 1 && (t->next->type == _pipe || ft_is_a_redirection(t->next->type) == 1))// redirection then pipe
 			return (printf("syntax error\n"), 0);
 		if(t->next && t->type == _pipe && ft_is_a_redirection(t->next->type) == 1)// pipe then redirection
 			return (printf("syntax error\n"), 0);
@@ -75,8 +73,7 @@ int ft_parsing(t_token *t)
 			return (printf("syntax error\n"), 0);
 		if(t->type && ft_unclosed_quote(t->token) == 1)
 			return (printf("syntax error\n"), 0);
-		// if(t->type && ft_unclosed_quote(t->token) == 1)
-		// 	return (printf("syntax error\n"), 0);
+
 		
 		t = t->next;
 	}

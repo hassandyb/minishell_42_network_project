@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/24 16:32:03 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/24 18:23:05 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,40 +117,7 @@ void ft_add_back_t_env(t_env **e, t_env *node)
 	temp->next = node;
 }
 //---------------------------------
-// Env examples
-// 0 ==> USER      hed-dyb
-// 1 ==> MallocNanoZone      0
-// 3 ==> LOGNAME      hed-dyb
-// 5 ==> HOME      /Users/hed-dyb
-// 6 ==> SHELL      /bin/zsh
-// 7 ==> __CF_USER_TEXT_ENCODING      0x18F3C:0x0:0x0
-// 9 ==> XPC_SERVICE_NAME      0
-// 10 ==> XPC_FLAGS      0x0
-// 11 ==> ORIGINAL_XDG_CURRENT_DESKTOP      undefined
-// 12 ==> SHLVL      1
-// 13 ==> PWD      /Users/hed-dyb/Desktop/minishell/mandatory
-// 14 ==> OLDPWD      /Users/hed-dyb/Desktop/minishell
-// 15 ==> ZSH      /Users/hed-dyb/.oh-my-zsh
-// 16 ==> PAGER      less
-// 17 ==> LESS      -R
-// 18 ==> LSCOLORS      Gxfxcxdxbxegedabagacad
-// 22 ==> TERM_PROGRAM      vscode
-// 23 ==> TERM_PROGRAM_VERSION      1.79.2
-// 24 ==> LANG      en_US.UTF-8
-// 25 ==> COLORTERM      truecolor
 
-
-// ft_special_cases()
-	
-	// if(node->token[begin + 1] == '_' && node->token[begin + 2] == '\0')
-	// {
-	// 	//do something;
-	// }
-	// if(node->token[begin + 1] == '_' && node->token[begin + 2] == '?')
-	// {
-	// 	//do something;
-	// }
-	//if()  dollar then a char who is not valid directly ...
 int ft_isalpha(char c)
 {
 	if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
@@ -271,29 +238,6 @@ char *ft_strjoin(char *s1, char *s2, t_free *f)
 	return (result);
 }
 
-//   aa$0HOME 
-//   01234567
-
-// 7 - 2 = 5
-
-// end = 5 gegin 0 ==>5
-//   012345
-//   want 6, 7 - 0 -1
-// char *ft_special_cases(char *tok, int begin, int end, t_free *f)
-// {
-
-// 	if(tok[begin + 1] >= '0' && tok[begin + 1] <= '9')// if i have a number after
-// 		return (ft_substr(tok, begin + 2, end - begin - 1, f));
-// 	else if( tok[begin + 1] == '?')
-// 	{
-// 		tok[begin + 1] = '0';
-// 		return (ft_substr(tok, begin + 1, end - begin, f));
-// 	}
-// 	else
-
-// 	return (NULL);
-// }
-
 void ft_replace(t_token *node,t_env *e, t_free *f)
 {
 	int begin = 0;
@@ -313,7 +257,12 @@ void ft_replace(t_token *node,t_env *e, t_free *f)
 		node->token = ft_strjoin(befor, after, f);
 	}
 }
+//___________________________________
 
+// void ft_split_spaces(t_token *node, t_free *f)
+// {
+	
+// }
 void ft_expander(t_env **e, char **env, t_token **t, t_free *f)
 {
 	int i;
@@ -332,6 +281,7 @@ void ft_expander(t_env **e, char **env, t_token **t, t_free *f)
 		if(temp->type == _word || temp->type == _double_quote)
 		{
 			ft_replace(temp, *e, f);
+			// ft_split_spaces(temp, f);
 		}
 		temp = temp->next;
 	}
