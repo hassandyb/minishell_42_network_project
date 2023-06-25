@@ -1,0 +1,10 @@
+total 40
+drwxr-xr-x   9 hed-dyb  candidate    306 Jun 25 14:55 .
+drwxr-xr-x  14 hed-dyb  candidate    476 Jun 25 14:37 ..
+drwxr-xr-x  12 hed-dyb  candidate    408 Jun 22 11:45 .git
+drwxr-xr-x   3 hed-dyb  candidate    102 Jun 15 20:38 .vscode
+-rw-r--r--   1 hed-dyb  candidate      0 Jun 25 14:55 f
+drwxr-xr-x   8 hed-dyb  candidate    272 Jun 25 13:45 mandatory
+-rw-r--r--@  1 hed-dyb  candidate  13900 Jun 20 10:43 readme.md
+-rw-r--r--   1 hed-dyb  candidate    975 Jun 23 15:27 test.c
+drwxr-xr-x   9 hed-dyb  candidate    306 Jun 21 14:49 tests

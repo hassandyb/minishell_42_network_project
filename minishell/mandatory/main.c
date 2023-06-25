@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/25 13:44:53 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/25 16:01:20 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void ft_print_t_env_linked_list(t_env *e)//
 //  0 = does not exist
 //  1 = does exist 
 
-
+//  creating env var
 char	*ft_substr(char *s, int start, int len, t_free *f)
 {
 	char	*result;
@@ -116,7 +116,7 @@ void ft_add_back_t_env(t_env **e, t_env *node)
 	}
 	temp->next = node;
 }
-//---------------------------------
+//    expanding vars   ---------------------------------
 
 int ft_isalpha(char c)
 {
@@ -257,6 +257,33 @@ void ft_replace(t_token *node,t_env *e, t_free *f)
 		node->token = ft_strjoin(befor, after, f);
 	}
 }
+
+void ft_expand_var(t_token *t, t_env *e, t_free *f)
+{
+	int i;
+	t_token *temp;
+
+	temp = t;
+	i = 0;
+	while(temp)
+	{
+		if((temp->type == _word || temp->type == _double_quote ))
+		{
+			if(i == 0)
+				ft_replace(temp, e, f);
+				
+			else if(i == 1 && temp->previous->type != _here_document)
+				ft_replace(temp, e, f);	
+				
+			else if(i >= 2 && (temp->previous->type != _here_document && temp->previous->previous->type != _here_document))
+				ft_replace(temp, e, f);
+		}
+		temp = temp->next;
+		i++;
+	}
+}
+//  spliting spaces  with spaces caused by vars values  -----------
+
 //___________________________________
 
 //  abc   def
@@ -264,6 +291,7 @@ void ft_replace(t_token *node,t_env *e, t_free *f)
 // begin = 2, end = 4
 // 
 // strlen = 9, 9 - 6
+
 // void ft_split_spaces(t_token *node, t_free *f)
 // {
 // 	int begin;// first char of first word
@@ -271,7 +299,7 @@ void ft_replace(t_token *node,t_env *e, t_free *f)
 // 	char *befor;
 // 	while(ft_find_char(node->token, ' ') >= 0)
 // 	{
-// 		ft_find_begin_and_end(node->token, )
+// 		ft_find_begin_and_end(node->token, &begin, &end);
 // 		befor = ft_substr(node->token, begin, end - begin + 1, f);
 		
 
@@ -285,7 +313,10 @@ void ft_replace(t_token *node,t_env *e, t_free *f)
 // 		// node->token = ft_substr(node->token, i, )
 // 	}
 // }
-void ft_expander(t_env **e, char **env, t_token **t, t_free *f)
+
+
+
+void ft_expander(t_token **t, t_env **e, char **env, t_free *f)
 {
 	int i;
 	t_token *temp;
@@ -298,18 +329,9 @@ void ft_expander(t_env **e, char **env, t_token **t, t_free *f)
 			ft_add_back_t_env(e, ft_t_env_node(env[i], f));
 			i++;
 	}
-
-	while(temp)
-	{
-		if(temp->type == _word || temp->type == _double_quote)
-		{
-			ft_replace(temp, *e, f);
-			if(temp->type == _word)// we will split spaces in case of word only
-				ft_split_spaces(temp, f);
-		}
-		temp = temp->next;
-	}
-
+	ft_expand_var(*t, *e, f);
+	ft_split_spaces(t, f);
+	
 }
 
 
@@ -321,14 +343,13 @@ int main (int argc, char **argv, char  **env)
 	char *command;
 	t_env *e;
 	(void)argv;
-	
+	e = NULL;
 	if(argc != 1)
 		exit (0);
 	while(1)
 	{
 		t = NULL;
 		f = NULL;
-		e = NULL;
 		command = readline("minishell= ");
 		if(command == NULL)
 			exit (0);
@@ -339,9 +360,9 @@ int main (int argc, char **argv, char  **env)
 			ft_free_all(f);
 			continue ;
 		}
-				// ft_print_t_token_linked_list(t);
-		ft_expander(&e, env, &t, f);
-				// ft_print_t_token_linked_list(t);
+				ft_print_t_token_linked_list(t);
+		ft_expander(&t, &e, env, f);
+				ft_print_t_token_linked_list(t);
 				// ft_print_t_env_linked_list(e);
 
 	}
