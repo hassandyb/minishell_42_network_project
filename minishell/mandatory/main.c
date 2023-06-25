@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/24 18:23:05 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/25 13:44:53 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,10 @@ int ft_find_char(char *str, char c)
 	while(str && str[i])
 	{
 		if(str[i] == c)
-			return (1);
+			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
 void ft_begin_and_end(char *token, int *begin, int *end)
@@ -201,7 +201,6 @@ char *ft_get_var_value(t_env *e, char *var, t_free *f)
 {
 	int i;
 	
-	
 	while(e)
 	{
 		i = 0;
@@ -247,7 +246,8 @@ void ft_replace(t_token *node,t_env *e, t_free *f)
 	char *var_value;
 	char *befor;
 	char *after;
-	while (ft_find_char(node->token, '$') == 1 && match_regex(node->token[begin + 1]))
+	
+	while (ft_find_char(node->token, '$') >= 0 && match_regex(node->token[begin + 1]))
 	{
 		ft_begin_and_end(node->token, &begin, &end);
 		befor = ft_substr(node->token, 0, begin, f);
@@ -259,9 +259,31 @@ void ft_replace(t_token *node,t_env *e, t_free *f)
 }
 //___________________________________
 
+//  abc   def
+//012345678910
+// begin = 2, end = 4
+// 
+// strlen = 9, 9 - 6
 // void ft_split_spaces(t_token *node, t_free *f)
 // {
-	
+// 	int begin;// first char of first word
+// 	int end;// last char of first word
+// 	char *befor;
+// 	while(ft_find_char(node->token, ' ') >= 0)
+// 	{
+// 		ft_find_begin_and_end(node->token, )
+// 		befor = ft_substr(node->token, begin, end - begin + 1, f);
+		
+
+// 		// i++;
+// 		// while(node->token[i])
+// 		// {
+// 		// 	if(node->token[i] != ' ')
+// 		// 		break;
+// 		// 	i++;
+// 		// }
+// 		// node->token = ft_substr(node->token, i, )
+// 	}
 // }
 void ft_expander(t_env **e, char **env, t_token **t, t_free *f)
 {
@@ -276,12 +298,14 @@ void ft_expander(t_env **e, char **env, t_token **t, t_free *f)
 			ft_add_back_t_env(e, ft_t_env_node(env[i], f));
 			i++;
 	}
+
 	while(temp)
 	{
 		if(temp->type == _word || temp->type == _double_quote)
 		{
 			ft_replace(temp, *e, f);
-			// ft_split_spaces(temp, f);
+			if(temp->type == _word)// we will split spaces in case of word only
+				ft_split_spaces(temp, f);
 		}
 		temp = temp->next;
 	}
@@ -297,13 +321,14 @@ int main (int argc, char **argv, char  **env)
 	char *command;
 	t_env *e;
 	(void)argv;
-	e = NULL;
+	
 	if(argc != 1)
 		exit (0);
 	while(1)
 	{
 		t = NULL;
 		f = NULL;
+		e = NULL;
 		command = readline("minishell= ");
 		if(command == NULL)
 			exit (0);
@@ -314,9 +339,9 @@ int main (int argc, char **argv, char  **env)
 			ft_free_all(f);
 			continue ;
 		}
-				ft_print_t_token_linked_list(t);
+				// ft_print_t_token_linked_list(t);
 		ft_expander(&e, env, &t, f);
-				ft_print_t_token_linked_list(t);
+				// ft_print_t_token_linked_list(t);
 				// ft_print_t_env_linked_list(e);
 
 	}
