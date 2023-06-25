@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/25 16:01:20 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/06/25 18:36:39 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,25 +292,34 @@ void ft_expand_var(t_token *t, t_env *e, t_free *f)
 // 
 // strlen = 9, 9 - 6
 
-// void ft_split_spaces(t_token *node, t_free *f)
-// {
-// 	int begin;// first char of first word
-// 	int end;// last char of first word
-// 	char *befor;
-// 	while(ft_find_char(node->token, ' ') >= 0)
-// 	{
-// 		ft_find_begin_and_end(node->token, &begin, &end);
-// 		befor = ft_substr(node->token, begin, end - begin + 1, f);
+
+	// int begin;// first char of first word
+	// int end;// last char of first word
+	// char *befor;
+	// while(ft_find_char(node->token, ' ') >= 0)
+	// {
+	// 	ft_find_begin_and_end(node->token, &begin, &end);
+	// 	befor = ft_substr(node->token, begin, end - begin + 1, f);
 		
 
-// 		// i++;
-// 		// while(node->token[i])
-// 		// {
-// 		// 	if(node->token[i] != ' ')
-// 		// 		break;
-// 		// 	i++;
-// 		// }
-// 		// node->token = ft_substr(node->token, i, )
+	// 	// i++;
+	// 	// while(node->token[i])
+	// 	// {
+	// 	// 	if(node->token[i] != ' ')
+	// 	// 		break;
+	// 	// 	i++;
+	// 	// }
+	// 	// node->token = ft_substr(node->token, i, )
+//-----------------------------------------------
+	
+// void ft_split_spaces(t_token **t, t_free *f)
+// {
+// 	t_token *temp;
+
+// 	temp = *t;
+// 	while(temp)
+// 	{
+// 		if(temp->type == _word && ft_find_char)
 // 	}
 // }
 
@@ -330,7 +339,7 @@ void ft_expander(t_token **t, t_env **e, char **env, t_free *f)
 			i++;
 	}
 	ft_expand_var(*t, *e, f);
-	ft_split_spaces(t, f);
+	ft_split_spaces(&t, f);
 	
 }
 
@@ -360,9 +369,9 @@ int main (int argc, char **argv, char  **env)
 			ft_free_all(f);
 			continue ;
 		}
-				ft_print_t_token_linked_list(t);
+				// ft_print_t_token_linked_list(t);
 		ft_expander(&t, &e, env, f);
-				ft_print_t_token_linked_list(t);
+				// ft_print_t_token_linked_list(t);
 				// ft_print_t_env_linked_list(e);
 
 	}
