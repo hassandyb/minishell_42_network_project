@@ -6,7 +6,7 @@
 #    By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/16 14:44:39 by hed-dyb           #+#    #+#              #
-#    Updated: 2023/06/22 16:04:32 by hed-dyb          ###   ########.fr        #
+#    Updated: 2023/07/07 22:41:48 by hed-dyb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FLAGS =  -Wall -Werror -Wextra -g -fsanitize=address
 
 TOKENIZER = $(addprefix tokenizer/, tokenizer_1.c tokenizer_2.c spaces.c)
 PARSER = parser.c
-TOOLS = $(addprefix tools/, protection.c utils_1.c)
+TOOLS = $(addprefix tools/, protection.c utils_1.c utils_2.c)
 
 FILES = main.c $(TOKENIZER) $(TOOLS) $(PARSER)
 

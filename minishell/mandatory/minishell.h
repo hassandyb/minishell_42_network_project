@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/07 20:55:08 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/07 22:42:52 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,20 @@ void ft_create_tokens(t_token **t, char *command, t_free **f);
 int ft_special_char (t_token *node);
 void ft_unnecessary_spaces(t_token **t);
 
-
 // parser
 int ft_is_a_redirection(t_type type);
 int ft_check_close(t_token *t);
 int ft_parsing(t_token *t);
 
-
 //utils
 int ft_is_a_white_space(char c);
 int ft_strlen(char *s);
-
+int ft_isalpha(char c);
+int ft_islnum(char c);
+int ft_find_char(char *str, char c);
+char *ft_strjoin(char *s1, char *s2, t_free *f);
+int ft_count_words(char *str, char c);
+char **ft_split(char *str, char c, t_free *f);
 
 //free/protection functions
 void ft_add_t_free(t_free **f, t_free *node);

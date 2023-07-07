@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/07 22:11:03 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/07 23:43:40 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,7 @@ void ft_print_t_env_linked_list(t_env *e)//
 //  1 = does exist 
 
 //  creating env var
-char	*ft_substr(char *s, int start, int len, t_free *f)
-{
-	char	*result;
-	int	i;
 
-	i = 0;
-	if(s == NULL )
-		return NULL;
-	
-	result = (char *) malloc(len + 1);
-	ft_protection(result, NULL, f);
-	ft_add_t_free(&f, ft_create_t_free(result, f));
-	while (s[i + start] != '\0' && i < len)
-	{
-		result[i] = s[i + start];
-		i++;
-	}
-	result[i] = '\0';
-	return (result);
-}
 
 t_env *ft_t_env_node(char *env_line, t_free *f)
 {
@@ -117,38 +98,6 @@ void ft_add_back_t_env(t_env **e, t_env *node)
 	temp->next = node;
 }
 //    expanding vars   ---------------------------------
-
-int ft_isalpha(char c)
-{
-	if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (1);
-	return (0);
-}
-
-int ft_islnum(char c)
-{
-	if(c >= '0' && c <= '9')
-		return (1);
-	if(c >= 'a' && c <= 'z')
-		return (1);
-	if(c >= 'A' && c <= 'Z')
-		return (1);
-	return (0);
-}
-
-int ft_find_char(char *str, char c)// put it in utils
-{
-	int i;
-
-	i = 0;
-	while(str && str[i])
-	{
-		if(str[i] == c)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
 
 int ft_valid_var(char *tok)
 {
@@ -218,30 +167,6 @@ char *ft_get_var_value(t_env *e, char *var, t_free *f)
 	return(ft_strdup("", f));
 }
 
-char *ft_strjoin(char *s1, char *s2, t_free *f)
-{
-	int i;
-	int j;
-	char *result;
-	i = -1;
-	j = 0;
-	if(!s1 || !s2)
-		return (NULL);
-	result = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	ft_protection(result, NULL, f);
-	ft_add_t_free(&f, ft_create_t_free(result, f));
-	while(s1[++i])
-		result[i] = s1[i];
-	while(s2[j])
-	{
-		result[i] = s2[j];
-		i++;
-		j++;
-	}
-	result[i] = '\0';
-	return (result);
-}
-
 void ft_replace(t_token *node,t_env *e, t_free *f)
 {
 	int begin = 0;
@@ -290,53 +215,7 @@ void ft_expand_var(t_token *t, t_env *e, t_free *f)
 }
 //  spliting spaces  with spaces caused by vars values  -----------
 
-//___________________________________
-
-//here ------
-
-int ft_count_words(char *str, char c)
-{
-	int i;
-	int counter;
-
-	i = 0;
-	counter = 0;
-	//       abc  def  ghi
-	while(str[i] == c)	
-		i++;
-	while(str[i])
-	{
-		if((str[i] == c && str[i + 1] != c) || str[i + 1] == '\0')
-			counter++;
-		i++;
-	}
-	return (counter);
-}
-
-char **ft_split(char *str, char c, t_free *f)
-{
-	int i;
-	char **result;
-	int j;
-	int start;
-	i = 0;
-	j = 0;
-	result = malloc((ft_count_words(str, c) + 1) * sizeof(char *));
-	ft_protection_2(result, NULL, f);
-	ft_add_t_free(&f, ft_create_t_free(result, f));
-	while(i < ft_count_words(str, c) && str[j])
-	{
-		while(str[j] == c)
-			j++;
-		start = j;
-		while(str[j] != c && str[j] != '\0')
-			j++;
-		result[i] = ft_substr(str, start, j - start, f);
-		i++;
-	}
-	result[i] = NULL;
-	return (result);
-}
+//split spaces   ___________________________________
 
 void ft_add_new_to_t(t_token **t, t_token *temp, t_token *new)
 {
@@ -394,6 +273,22 @@ void ft_split_spaces(t_token **t, t_free *f)
 }
 
 
+//conactinating ______________________
+
+// int ft_
+// void ft_concatenate(t_token **t)
+// {
+// 	while(ft_is_wrd_qot(*t) == 1 && ft_is_wrd_qot((*t)->next) == 1)
+// 	{
+		
+// 	}
+	
+// 	while()
+// }
+
+
+
+
 
 void ft_expander(t_token **t, t_env **e, char **env, t_free *f)
 {
@@ -409,11 +304,8 @@ void ft_expander(t_token **t, t_env **e, char **env, t_free *f)
 			i++;
 	}
 	ft_expand_var(*t, *e, f);
-
-	//----
 	ft_split_spaces(t, f);
-	
-	
+	ft_concatenate(t);
 }
 
 
