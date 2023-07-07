@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/07 23:43:40 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/07 23:51:18 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,18 @@ void ft_split_spaces(t_token **t, t_free *f)
 
 //conactinating ______________________
 
-// int ft_
+// int ft_wrd_qot(t_token *node)
+// {
+	// if(node->type == _word)
+	// 	return (1);
+	// if(node->type == _single_quote)
+	// 	return (1);
+	// if(node->type == _word)
+	// 	return (1);
+	
+// }
+
+
 // void ft_concatenate(t_token **t)
 // {
 // 	while(ft_is_wrd_qot(*t) == 1 && ft_is_wrd_qot((*t)->next) == 1)
@@ -305,7 +316,7 @@ void ft_expander(t_token **t, t_env **e, char **env, t_free *f)
 	}
 	ft_expand_var(*t, *e, f);
 	ft_split_spaces(t, f);
-	ft_concatenate(t);
+	// ft_concatenate(t);
 }
 
 

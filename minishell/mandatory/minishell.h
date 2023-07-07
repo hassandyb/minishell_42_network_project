@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/07 22:42:52 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/07 23:52:18 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int ft_strlen(char *s);
 int ft_isalpha(char c);
 int ft_islnum(char c);
 int ft_find_char(char *str, char c);
+char	*ft_substr(char *s, int start, int len, t_free *f);
 char *ft_strjoin(char *s1, char *s2, t_free *f);
 int ft_count_words(char *str, char c);
 char **ft_split(char *str, char c, t_free *f);
