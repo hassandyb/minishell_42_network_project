@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:13:28 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/22 15:59:59 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/07 16:05:50 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_token *ft_create_node(char *tok, int type_, t_free **f, char *command)
 	node->token = malloc((ft_strlen(tok) + 1) * sizeof(char));
 	if(node == NULL || node->token == NULL)
 	{
-		free (command);
+		if(command != NULL)
+			free (command);
 		ft_free_all(*f);
 		exit(1);
 	}

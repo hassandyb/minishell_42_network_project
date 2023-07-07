@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/25 18:36:39 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/07 16:18:25 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int match_regex(char c)
 	return (0);
 }
 
-int ft_find_char(char *str, char c)
+int ft_find_char(char *str, char c)// put it in utils
 {
 	int i;
 
@@ -286,42 +286,97 @@ void ft_expand_var(t_token *t, t_env *e, t_free *f)
 
 //___________________________________
 
-//  abc   def
-//012345678910
-// begin = 2, end = 4
-// 
-// strlen = 9, 9 - 6
+//here ------
+
+int ft_count_words(char *str, char c)
+{
+	int i;
+	int counter;
+
+	i = 0;
+	counter = 0;
+	//       abc  def  ghi
+	while(str[i] == c)	
+		i++;
+	while(str[i])
+	{
+		if((str[i] == c && str[i + 1] != c) || str[i + 1] == '\0')
+			counter++;
+		i++;
+	}
+	return (counter);
+}
+
+char **ft_split(char *str, char c, t_free *f)
+{
+	int i;
+	char **result;
+	int j;
+	int start;
+	i = 0;
+	j = 0;
+	result = malloc((ft_count_words(str, c) + 1) * sizeof(char *));
+	ft_protection(result, NULL, f);
+	ft_add_t_free(&f, ft_create_t_free(result, f));
+	while(i < ft_count_words(str, c) && str[j])
+	{
+		while(str[j] == c)
+			j++;
+		start = j;
+		while(str[j] != c && str[j] != '\0')
+			j++;
+		result[i] = ft_substr(str, start, j - start, f);
+		i++;
+	}
+	result[i] = NULL;
+	return (result);
+}
+
+void ft_add_new_to_t(t_token *t, t_token *temp, t_token *new)
+{
+	t_token *prv;
+	t_token *nxt;
+
+	prv = temp->previous;
+	nxt = temp->next;
+
+	prv->next = new;
+	//new ->previous == ????
+	while(new)
+	{
+		if(new->next = NULL)
+			break;
+		new = new->next;
+	}
+	new->next = 
+}
 
 
-	// int begin;// first char of first word
-	// int end;// last char of first word
-	// char *befor;
-	// while(ft_find_char(node->token, ' ') >= 0)
-	// {
-	// 	ft_find_begin_and_end(node->token, &begin, &end);
-	// 	befor = ft_substr(node->token, begin, end - begin + 1, f);
 		
-
-	// 	// i++;
-	// 	// while(node->token[i])
-	// 	// {
-	// 	// 	if(node->token[i] != ' ')
-	// 	// 		break;
-	// 	// 	i++;
-	// 	// }
-	// 	// node->token = ft_substr(node->token, i, )
-//-----------------------------------------------
-	
-// void ft_split_spaces(t_token **t, t_free *f)
-// {
-// 	t_token *temp;
-
-// 	temp = *t;
-// 	while(temp)
-// 	{
-// 		if(temp->type == _word && ft_find_char)
-// 	}
-// }
+void ft_split_spaces(t_token **t, t_free *f)
+{
+	t_token *temp;
+	char **result = NULL;
+	temp = *t;
+	int i;
+	t_token *new;
+	new = NULL;
+	while(temp)
+	{
+		i = 0;
+		if(temp->type == _word && ft_find_char(temp->token, ' ') > 0)
+		{
+			result = ft_split(temp->token, ' ', f);
+			while(result[i] != NULL)
+			{
+				ft_add_back(&new, ft_create_node(result[i], _word, f, NULL));
+				i++;
+			}
+			ft_add_new_to_t(*t, temp, new);
+		}
+		temp = temp->next;
+	}
+}
 
 
 
@@ -338,8 +393,10 @@ void ft_expander(t_token **t, t_env **e, char **env, t_free *f)
 			ft_add_back_t_env(e, ft_t_env_node(env[i], f));
 			i++;
 	}
+	ft_print_t_token_linked_list(*t);
 	ft_expand_var(*t, *e, f);
-	ft_split_spaces(&t, f);
+	ft_print_t_token_linked_list(*t);
+	// ft_split_spaces(&t, f);
 	
 }
 

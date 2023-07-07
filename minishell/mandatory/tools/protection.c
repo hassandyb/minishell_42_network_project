@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 20:21:36 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/24 16:14:24 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/07 15:34:26 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void ft_free_all(t_free *f)
 
 }
 
-void ft_protection(char *to_check, char *optional, t_free *f)
+void ft_protection(void *to_check, void *optional, t_free *f)
 {
 	if(to_check == NULL)
 	{
