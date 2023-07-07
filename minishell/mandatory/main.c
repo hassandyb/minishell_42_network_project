@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/07 16:18:25 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/07 22:11:03 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,6 @@ int ft_islnum(char c)
 	return (0);
 }
 
-int match_regex(char c)
-{
-	if (c == '_' || ft_isalpha(c))
-		return (1);
-	return (0);
-}
-
 int ft_find_char(char *str, char c)// put it in utils
 {
 	int i;
@@ -155,6 +148,18 @@ int ft_find_char(char *str, char c)// put it in utils
 		i++;
 	}
 	return (-1);
+}
+
+int ft_valid_var(char *tok)
+{
+	int dollar;
+
+	dollar = ft_find_char(tok, '$');
+	if(dollar == -1)
+		return (0);
+	if(tok[dollar + 1] == '_' || ft_isalpha(tok[dollar + 1]) == 1)
+		return (1);
+	return (0);
 }
 
 void ft_begin_and_end(char *token, int *begin, int *end)
@@ -241,14 +246,15 @@ void ft_replace(t_token *node,t_env *e, t_free *f)
 {
 	int begin = 0;
 	int end = 0;
-	(void)e;
+
 
 	char *var_value;
 	char *befor;
 	char *after;
 	
-	while (ft_find_char(node->token, '$') >= 0 && match_regex(node->token[begin + 1]))
+	while (ft_find_char(node->token, '$') >= 0 && ft_valid_var(node->token) == 1)//ft(node->token[begin + 1])
 	{
+		
 		ft_begin_and_end(node->token, &begin, &end);
 		befor = ft_substr(node->token, 0, begin, f);
 		var_value = ft_get_var_value(e, ft_substr(node->token, begin + 1, end - begin, f), f);
@@ -316,7 +322,7 @@ char **ft_split(char *str, char c, t_free *f)
 	i = 0;
 	j = 0;
 	result = malloc((ft_count_words(str, c) + 1) * sizeof(char *));
-	ft_protection(result, NULL, f);
+	ft_protection_2(result, NULL, f);
 	ft_add_t_free(&f, ft_create_t_free(result, f));
 	while(i < ft_count_words(str, c) && str[j])
 	{
@@ -332,27 +338,31 @@ char **ft_split(char *str, char c, t_free *f)
 	return (result);
 }
 
-void ft_add_new_to_t(t_token *t, t_token *temp, t_token *new)
+void ft_add_new_to_t(t_token **t, t_token *temp, t_token *new)
 {
 	t_token *prv;
 	t_token *nxt;
 
 	prv = temp->previous;
 	nxt = temp->next;
-
-	prv->next = new;
-	//new ->previous == ????
+	if(prv != NULL)
+		prv->next = new;
+	if(new != NULL)
+		new->previous = prv;
+	if(temp == *t)
+		*t = new;
 	while(new)
 	{
-		if(new->next = NULL)
+		if(new->next == NULL)
 			break;
 		new = new->next;
 	}
-	new->next = 
+	if(new != NULL)
+		new->next = nxt;
+	if(nxt != NULL)
+		nxt->previous = new;
 }
-
-
-		
+	
 void ft_split_spaces(t_token **t, t_free *f)
 {
 	t_token *temp;
@@ -360,6 +370,7 @@ void ft_split_spaces(t_token **t, t_free *f)
 	temp = *t;
 	int i;
 	t_token *new;
+
 	new = NULL;
 	while(temp)
 	{
@@ -367,12 +378,16 @@ void ft_split_spaces(t_token **t, t_free *f)
 		if(temp->type == _word && ft_find_char(temp->token, ' ') > 0)
 		{
 			result = ft_split(temp->token, ' ', f);
+
 			while(result[i] != NULL)
 			{
-				ft_add_back(&new, ft_create_node(result[i], _word, f, NULL));
+				ft_add_back(&new, ft_create_node(result[i], _word, &f, NULL));
+				if(result[i + 1] != NULL)
+				ft_add_back(&new, ft_create_node(" ", _white_space, &f, NULL));
 				i++;
 			}
-			ft_add_new_to_t(*t, temp, new);
+
+			ft_add_new_to_t(t, temp, new);
 		}
 		temp = temp->next;
 	}
@@ -393,10 +408,11 @@ void ft_expander(t_token **t, t_env **e, char **env, t_free *f)
 			ft_add_back_t_env(e, ft_t_env_node(env[i], f));
 			i++;
 	}
-	ft_print_t_token_linked_list(*t);
 	ft_expand_var(*t, *e, f);
-	ft_print_t_token_linked_list(*t);
-	// ft_split_spaces(&t, f);
+
+	//----
+	ft_split_spaces(t, f);
+	
 	
 }
 
@@ -426,10 +442,9 @@ int main (int argc, char **argv, char  **env)
 			ft_free_all(f);
 			continue ;
 		}
-				// ft_print_t_token_linked_list(t);
+		ft_print_t_token_linked_list(t);
 		ft_expander(&t, &e, env, f);
-				// ft_print_t_token_linked_list(t);
-				// ft_print_t_env_linked_list(e);
+		ft_print_t_token_linked_list(t);
 
 	}
 	ft_free_all(f);	

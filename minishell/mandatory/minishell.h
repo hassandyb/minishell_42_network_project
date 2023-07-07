@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/06/24 16:06:23 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/07 20:55:08 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int ft_strlen(char *s);
 void ft_add_t_free(t_free **f, t_free *node);
 void *ft_create_t_free(void *add, t_free *f);
 void ft_free_all(t_free *f);
-void ft_protection(char *to_check, char *command, t_free *f);
+void ft_protection_2(char **to_check, void *optional, t_free *f);
+void ft_protection(char *to_check, void *optional, t_free *f);
 #endif
 
