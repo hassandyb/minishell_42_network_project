@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/07 23:51:18 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/08 15:03:43 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,27 +275,55 @@ void ft_split_spaces(t_token **t, t_free *f)
 
 //conactinating ______________________
 
-// int ft_wrd_qot(t_token *node)
-// {
-	// if(node->type == _word)
-	// 	return (1);
-	// if(node->type == _single_quote)
-	// 	return (1);
-	// if(node->type == _word)
-	// 	return (1);
-	
-// }
+int ft_is_wrd_qot(t_token *node)
+{
+	if(node == NULL)
+		return (0);
+	if(node->type == _word)
+		return (1);
+	if(node->type == _single_quote)
+		return (1);
+	if(node->type == _double_quote)
+		return (1);
+	return (0);
+}
 
+void ft_if_its_inside(t_token *t, t_free *f)
+{
+	t_token *temp;
+	t_token *node;
+	temp = t;
+	while(temp)
+	{
+		if(ft_is_wrd_qot(temp) == 1 && ft_is_wrd_qot(temp->next) == 1)
+		{
+			node = ft_strjoin(temp->token, temp->next->token, f);
+		}
+	}
+}
 
-// void ft_concatenate(t_token **t)
-// {
-// 	while(ft_is_wrd_qot(*t) == 1 && ft_is_wrd_qot((*t)->next) == 1)
-// 	{
-		
-// 	}
+void ft_concatenate(t_token **t, t_free *f)
+{
+	ft_print_t_token_linked_list(*t);
+	t_token *node;
+	t_token *temp;
+	char *newtok;
 	
-// 	while()
-// }
+	while(ft_is_wrd_qot(*t) == 1 && ft_is_wrd_qot((*t)->next) == 1)//in case we need to concatenate in the beginig - we will have to change the *t adress!!!!
+	{
+		newtok = ft_strjoin((*t)->token, (*t)->next->token, f);
+		node = ft_create_node(newtok, _word, &f, NULL);
+		temp = (*t)->next->next;
+		if(temp != NULL)
+			temp->previous = node;
+		node->next = temp;
+		*t = node;	
+	}
+	if((*t)->next == NULL || (*t)->next->next == NULL)
+		return ;
+	ft_if_its_inside(*t,f);// incase i need to concatinate inside the t_token linked test - no need for **t , just *temp;
+	ft_print_t_token_linked_list(*t);
+}
 
 
 
@@ -316,9 +344,10 @@ void ft_expander(t_token **t, t_env **e, char **env, t_free *f)
 	}
 	ft_expand_var(*t, *e, f);
 	ft_split_spaces(t, f);
-	// ft_concatenate(t);
+	ft_concatenate(t, f);
 }
-
+//test this case  echo $USER" l"'s'
+//test this case   $66gg$HOME
 
 
 int main (int argc, char **argv, char  **env)
@@ -345,9 +374,9 @@ int main (int argc, char **argv, char  **env)
 			ft_free_all(f);
 			continue ;
 		}
-		ft_print_t_token_linked_list(t);
+		
 		ft_expander(&t, &e, env, f);
-		ft_print_t_token_linked_list(t);
+		// ft_print_t_token_linked_list(t);
 
 	}
 	ft_free_all(f);	
