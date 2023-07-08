@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/08 17:40:07 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/08 18:45:14 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,10 @@ void ft_print_t_env_linked_list(t_env *e)//
 //  ft_find_cha
 //  0 = does not exist
 //  1 = does exist 
-
-//  creating env var
-
-
-//    expanding vars   ---------------------------------
-
-
-//  spliting spaces  with spaces caused by vars values  -----------
-
-//split spaces   ___________________________________
-
-//conactinating ______________________
-
-
-
-
-//test this case  echo $USER" l"'s'
-//test this case   $66gg$HOME
+void ft_function(t_token **t, t_free *f)
+{
+	ft_create_fd
+}
 
 
 // 
@@ -94,11 +80,10 @@ int main (int argc, char **argv, char  **env)
 			ft_free_all(f);
 			continue ;
 		}
-		
 		ft_print_t_token_linked_list(t);
 		ft_expander(&t, &e, env, f);
 		ft_print_t_token_linked_list(t);
-
+		ft_function(t, f);
 	}
 	ft_free_all(f);	
 }

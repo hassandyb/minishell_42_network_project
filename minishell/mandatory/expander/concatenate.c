@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 17:31:35 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/08 17:34:07 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/08 18:43:01 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void ft_concatenate(t_token **t, t_free *f)
 	}
 	if((*t)->next == NULL || (*t)->next->next == NULL)
 		return ;
-	ft_if_its_inside(*t,f);// incase i need to concatinate inside the t_token linked test - no need for **t , just *temp;
+	ft_if_its_inside(*t,f);// in case i need to concatinate inside the t_token linked test - no need for **t , just *temp;
 }
 
 
