@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 22:37:16 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/07 22:42:12 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/08 17:23:00 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,3 +94,22 @@ char **ft_split(char *str, char c, t_free *f)
 	return (result);
 }
 
+char *ft_strdup(char *str, t_free *f)
+{
+	int i;
+	char *copy;
+	
+	if(str == NULL)
+		return (NULL);
+	copy = malloc((ft_strlen(str) + 1) * sizeof(char));
+	ft_protection(copy, NULL, f);
+	ft_add_t_free(&f, ft_create_t_free(copy, f));
+	i = 0;
+	while(str[i])
+	{
+		copy[i] = str[i];	
+		i++;
+	}
+	copy[i] = '\0';
+	return (copy);
+}

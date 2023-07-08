@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:13:28 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/07 16:05:50 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/08 15:07:40 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_token *ft_create_node(char *tok, int type_, t_free **f, char *command)
 		exit(1);
 	}
 	ft_add_t_free(f, ft_create_t_free(node, *f));
+	ft_add_t_free(f, ft_create_t_free(node->token, *f));
 	node->type = type_;
 	while(tok && tok[i])
 	{

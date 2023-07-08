@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/07 23:52:18 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/08 17:34:15 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ typedef struct s_env
 	struct s_env *next;
 }t_env;
 //tokenizer (tokenization) functions
-
 //part 1
 t_token *ft_create_node(char *tok, int type_, t_free **f, char *command);
 void ft_add_back(t_token **t, t_token *node);
@@ -88,6 +87,22 @@ int ft_is_a_redirection(t_type type);
 int ft_check_close(t_token *t);
 int ft_parsing(t_token *t);
 
+//expander
+void ft_expander(t_token **t, t_env **e, char **env, t_free *f);
+t_env *ft_t_env_node(char *env_line, t_free *f);
+void ft_add_back_t_env(t_env **e, t_env *node);
+int ft_valid_var(char *tok);
+void ft_begin_and_end(char *token, int *begin, int *end);
+char *ft_get_var_value(t_env *e, char *var, t_free *f);
+void ft_replace(t_token *node,t_env *e, t_free *f);
+void ft_expand_var(t_token *t, t_env *e, t_free *f);
+void ft_split_spaces(t_token **t, t_free *f);
+void ft_add_new_to_t(t_token **t, t_token *temp, t_token *new);
+int ft_is_wrd_qot(t_token *node);
+char *ft_join_token(t_token *node1, t_token *node2, t_free *f);
+void ft_if_its_inside(t_token *t, t_free *f);
+void ft_concatenate(t_token **t, t_free *f);
+
 //utils
 int ft_is_a_white_space(char c);
 int ft_strlen(char *s);
@@ -98,6 +113,7 @@ char	*ft_substr(char *s, int start, int len, t_free *f);
 char *ft_strjoin(char *s1, char *s2, t_free *f);
 int ft_count_words(char *str, char c);
 char **ft_split(char *str, char c, t_free *f);
+char *ft_strdup(char *str, t_free *f);
 
 //free/protection functions
 void ft_add_t_free(t_free **f, t_free *node);
