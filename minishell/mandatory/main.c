@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/08 18:45:14 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/09 16:40:24 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,15 @@ void ft_print_t_env_linked_list(t_env *e)//
 //  ft_find_cha
 //  0 = does not exist
 //  1 = does exist 
-void ft_function(t_token **t, t_free *f)
-{
-	ft_create_fd
-}
+
+// void ft_function(t_token **t, t_free *f)
+// {
+// 	ft_create_fd
+// }
 
 
-// 
-
+// < in   << eof why nothing desplayer after   << eof >> out ....
+// can you explain me the dup and dup2 functions in c , with very simple examples
 int main (int argc, char **argv, char  **env)
 {
 	t_token *t;
