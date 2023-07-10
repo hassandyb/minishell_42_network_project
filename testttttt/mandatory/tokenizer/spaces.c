@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 15:38:04 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/10 17:14:28 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/10 19:14:12 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void ft_unnecessary_spaces(t_token **t)
 		temp = temp->next;
 	}
 	temp = *t;
-	while(temp->next)
+	while(temp && temp->next)
 	{
 		if(temp->next->next == NULL && temp->next->type == _white_space)
 		{

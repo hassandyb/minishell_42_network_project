@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:49:42 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/10 17:16:27 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/10 18:20:02 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,7 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 	int i;
 
 	i = 0;
-	if(command[0] == '\0')
-		return ;
+
 	while(command[i] && ft_is_a_white_space(command[i]) == 1 )
 		i++;
 	while(command && command[i])
@@ -140,6 +139,5 @@ void ft_create_tokens(t_token **t, char *command, t_free **f)
 		i++;
 	}
 	ft_unnecessary_spaces(t);
-	free(command);
-	command = NULL;
+
 }

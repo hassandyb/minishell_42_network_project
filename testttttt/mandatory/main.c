@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/10 17:12:16 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/10 19:48:46 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,10 @@ void ft_print_t_env_linked_list(t_env *e)//
 //  0 = does not exist
 //  1 = does exist 
 
-// struct typedef s_cmd
-// {
-// 	char *comand;
-// 	char **args;
-// 	int ofd;
-// 	int ifd;
-// }t_cmd;
+// 
 
-// void ft_function(t_cmd *cmd, t_token *t, t_free *f)
+
+// void ft_comand_info(t_cmd *cmd, t_token *t, t_free *f)
 // {
 	
 // }
@@ -89,10 +84,11 @@ int main (int argc, char **argv, char  **env)
 			ft_free_all(f);
 			continue ;
 		}
+		free(command);
 		// ft_print_t_token_linked_list(t);
 		ft_expander(&t, &e, env, f);
-		// ft_print_t_token_linked_list(t);
-		// ft_function(&cmd, &t, f);
+		ft_print_t_token_linked_list(t);
+		// ft_comand_info(&cmd, &t, f);
 	}
 	ft_free_all(f);	
 }

@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/10 17:19:51 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/10 20:14:42 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_cmd
 	char **comand;
 	int ofd;
 	int ifd;
+	struct s//,_cmd *next;
+
 
 }t_cmd;
 //tokenizer (tokenization) functions

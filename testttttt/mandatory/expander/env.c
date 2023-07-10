@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 17:20:23 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/08 17:28:12 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/10 20:03:55 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,17 @@ void ft_add_back_t_env(t_env **e, t_env *node)
 	temp->next = node;
 }
 
+void ft_rm_all_spaces(t_token *t)
+{
+	while(t)
+	{
+		if(t->type = _white_space)
+		{
+			
+		}
+		t = t->next;
+	}
+}
 void ft_expander(t_token **t, t_env **e, char **env, t_free *f)
 {
 	int i;
@@ -74,4 +85,15 @@ void ft_expander(t_token **t, t_env **e, char **env, t_free *f)
 	ft_expand_var(*t, *e, f);
 	ft_split_spaces(t, f);
 	ft_concatenate(t, f);
+
+	temp = *t;
+	while(temp)
+	{
+		if(temp->type == _double_quote || temp->type == _single_quote)
+			temp->token = ft_substr(temp->token, 1, ft_strlen(temp->token) - 2, f);
+
+		temp = temp->next;
+	}
+	ft_rm_all_spaces(*t);
+	
 }

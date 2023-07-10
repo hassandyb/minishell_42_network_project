@@ -6,14 +6,11 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 17:31:35 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/08 18:43:01 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/10 18:06:42 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
-
 
 
 int ft_is_wrd_qot(t_token *node)
