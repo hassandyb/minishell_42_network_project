@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/13 13:13:23 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/13 15:23:44 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,50 @@ void ft_print_t_env_linked_list(t_env *e)//
 	printf("\n\n");
 }
 
-void ft_printf_double_ptr(char **str)
+// void ft_printf_double_ptr(char **str)
+// {
+// 	if(str == NULL)
+// 	{
+// 		printf("NULL\n");
+// 		return ;
+// 	}
+// 	int i = 0;
+// 	while(str[i])
+// 	{
+// 		printf("%s  - ", str[i]);
+// 		i++;
+// 	}
+// 	printf("\n");
+// }
+void ft_print_t_cmd_linked_list(t_cmd *cmd)
 {
-	if(str == NULL)
+	if(cmd == NULL)
+		printf("NULL\n");
+	while(cmd)
+	{
+		int j = 0;
+		while(cmd->comand[j])
+		{
+			printf("command[%d] %s\n",j, cmd->comand[j]);
+			j++;
+		}
+		printf("\n");
+		cmd = cmd->next;
+	}
+	printf("\n\n");
+}
+
+void ft_print_t_red(t_red *r)
+{
+	if(r == NULL)
 	{
 		printf("NULL\n");
-		return ;
+		return;
 	}
-	int i = 0;
-	while(str[i])
+	while(r)
 	{
-		printf("%s  - ", str[i]);
-		i++;
+		printf("%s--%s    ", typeNames[r->type], r->file);
+		r = r->next;
 	}
 	printf("\n");
 }
@@ -63,8 +95,6 @@ void ft_printf_double_ptr(char **str)
 //  ft_find_cha
 //  0 = does not exist
 //  1 = does exist 
-
-// 
 
 			// typedef struct s_red 
 			// {
@@ -139,25 +169,88 @@ t_token *ft_next_part(t_token *temp)
 	return (temp);
 }
 
-t_red *ft_get_red(t_token *temp, t_free *f)
+void ft_protect(void *ptr, t_free *f)
 {
-	while(temp)
+	if(ptr == NULL)
+	{
+		ft_free_all(f);
+		exit (1);
+	}
+}
+
+void ft_add_back_t_red(t_red **r, t_red *node)
+{
+	t_red *temp;
+	
+	temp = *r;
+	if(*r == NULL)
+		*r = node;
+	else
+	{
+		while(temp)
+		{
+			if(temp->next == NULL)
+				break;
+			temp = temp->next;
+		}
+		temp->next = node;
+	}
+	
+}
+
+t_red *ft_create_t_red(t_token *temp, t_free *f)
+{
+	t_red *r;
+	t_red *node;
+
+	r = NULL;
+	while(temp && temp->type != _pipe)
 	{
 		if(ft_is_a_redirection(temp) == 1)
+		{
+			node = malloc(sizeof(t_red));
+			ft_protect(node, f);
+			ft_add_t_free(&f, ft_create_t_free(node, f));
+			node->type = temp->type;
+			node->file = ft_strdup(temp->next->token, f);
+			node->next = NULL;
+			ft_add_back_t_red(&r, node);
+			temp = temp->next;
+		}
+		temp = temp->next;
 	}
+	return r;
+}
+
+void ft_add_back_t_cmd(t_cmd *cmd, char **com, t_red *r, t_free *f)
+{
+	t_cmd *node;
+
+	node = malloc(sizeof(t_cmd));
+	ft_protect(node, f);
+	ft_add_t_free(&f, ft_create_t_free(node, f));
+	node->comand = com;
+	node->
+	
 }
 void ft_comand_info(t_cmd **cmd, t_token **t, t_free *f)
 {
+
 	t_token *temp;
 	char **comand;
-	t_cmd *node;
 	t_red *red;
-	(void)cmd;//remove it later
+	
 	temp = *t;
+	*cmd = NULL;
 	while(temp)
 	{
 		comand = ft_comand_with_args(temp, f);
-		red = ft_get_red(temp, f);
+		red = ft_create_t_red(temp, f);
+		ft_add_back_t_cmd(cmd, comand, red,f);
+		// ft_print_t_red(red);
+
+
+		
 		// node = malloc(sizeof(t_cmd))
 		// ft_create_t_cmd()
 		temp = ft_next_part(temp);
@@ -211,7 +304,7 @@ int main (int argc, char **argv, char  **env)
 		}
 		free(command);
 		ft_expander(&t, &e, env, f);
-		// ft_print_t_token_linked_list(t);
+		// ft_print_t_cmd_linked_list(cmd);
 		ft_comand_info(&cmd, &t, f);
 	}
 	ft_free_all(f);	
