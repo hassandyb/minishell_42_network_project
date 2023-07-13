@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:34 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/11 22:33:47 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/13 13:12:29 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int ft_check_file(t_token *t)// here i checl the i have (redirection </>..) then
 		return (0);
 	return (1);
 }
+
 int ft_parsing(t_token *t)
 {
 	if(t->type == _pipe)// pipe in the begining

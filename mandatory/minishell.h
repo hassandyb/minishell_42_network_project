@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/11 19:56:02 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/13 12:49:28 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,21 @@ typedef struct s_env
 	struct s_env *next;
 }t_env;
 
+typedef struct s_red 
+{
+	t_type type;
+	char *file;
+	struct s_red *next;
+}t_red;
+
 typedef struct s_cmd
 {
 	char **comand;
-	int ofd;
-	int ifd;
-	// struct s;//,_cmd *next;
+	t_red *red;
+	struct s_cmd *next;//,_cmd *next;
 }t_cmd;
+
+
 //tokenizer (tokenization) functions
 //part 1
 t_token *ft_create_node(char *tok, int type_, t_free **f, char *command);

@@ -6,7 +6,7 @@
 #    By: ataouaf <ataouaf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/16 14:44:39 by hed-dyb           #+#    #+#              #
-#    Updated: 2023/07/11 11:14:06 by ataouaf          ###   ########.fr        #
+#    Updated: 2023/07/12 18:36:02 by ataouaf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RM = rm -rf
 FLAGS =  -Wall -Werror -Wextra -g -fsanitize=address
 
 OBJECTS = ./obj
-EXEC = $(addprefix execution/, exec.c)
+EXEC = $(addprefix execution/, exec.c execute.c utils.c)
 TOKENIZER = $(addprefix tokenizer/, tokenizer_1.c tokenizer_2.c spaces.c)
 PARSER = parser.c
 TOOLS = $(addprefix tools/, protection.c utils_1.c utils_2.c)
