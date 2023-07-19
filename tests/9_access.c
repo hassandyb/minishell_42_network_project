@@ -37,13 +37,22 @@
 
 //_________________________________
 
-int mian ()
-{
-	const char *pathname = "file.txt";
+// int main ()
+// {
+// 	const char *pathname = "file.txt";
 
-	if(access (pathname, F_OK))
-		printf("the file does exist\n");
-}
+// 	if(access (pathname, F_OK) == 0)
+// 		printf("the file does exist\n");
+// 	if(access (pathname, R_OK) == 0)
+// 		printf("the file is readable\n");
+// 	if(access (pathname, W_OK) == 0)
+// 		printf("the file is writable\n");
+// 	if(access (pathname, X_OK) == 0)
+// 		printf("the file is executable\n");
+	
+// }
+//_________________________________
+
 
 
 
