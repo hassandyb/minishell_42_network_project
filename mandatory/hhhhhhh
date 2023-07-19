@@ -1,0 +1,18 @@
+total 288
+drwxr-xr-x  17 hed-dyb  candidate     578 Jul 13 16:40 .
+drwxr-xr-x   6 hed-dyb  candidate     204 Jul 13 12:38 ..
+-rw-r--r--   1 hed-dyb  candidate    1750 Jul 13 16:27 Makefile
+drwxr-xr-x   4 hed-dyb  candidate     136 Jul 13 16:34 cmd_info
+-rw-r--r--   1 hed-dyb  candidate    1316 Jul 13 12:38 exec.h
+drwxr-xr-x   5 hed-dyb  candidate     170 Jul 13 12:38 execution
+drwxr-xr-x   6 hed-dyb  candidate     204 Jul 13 12:38 expander
+-rw-r--r--   1 hed-dyb  candidate       0 Jul 13 16:40 hhhhhhh
+-rw-r--r--   1 hed-dyb  candidate       0 Jul 13 12:38 ls
+-rw-r--r--   1 hed-dyb  candidate    3573 Jul 13 16:25 main.c
+-rwxr-xr-x   1 hed-dyb  candidate  119912 Jul 13 16:37 minishell
+-rw-r--r--   1 hed-dyb  candidate    4624 Jul 13 16:16 minishell.h
+-rw-r--r--   1 hed-dyb  candidate       0 Jul 13 12:38 mm
+drwxr-xr-x   9 hed-dyb  candidate     306 Jul 13 16:37 obj
+-rw-r--r--   1 hed-dyb  candidate    2602 Jul 13 14:23 parser.c
+drwxr-xr-x   5 hed-dyb  candidate     170 Jul 13 12:38 tokenizer
+drwxr-xr-x   5 hed-dyb  candidate     170 Jul 13 12:38 tools
