@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:22:13 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/13 16:25:01 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/20 17:02:47 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_cmd *ft_create_t_cmd(char **com, t_red *r, t_free *f)
 
 void ft_add_back_t_cmd(t_cmd **cmd, t_cmd *node)
 {
-
 	t_cmd *temp;
 	
 	temp = *cmd;
@@ -118,4 +117,5 @@ void ft_comand_info(t_cmd **cmd, t_token **t, t_free *f)
 		ft_add_back_t_cmd(cmd, node);
 		temp = ft_next_part(temp);
 	}
+	ft_in_out_fd();
 }

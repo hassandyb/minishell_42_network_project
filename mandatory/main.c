@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:51:40 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/13 16:25:40 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/20 17:00:51 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int main (int argc, char **argv, char  **env)
 		free(command);
 		ft_expander(&t, &e, env, f);
 		ft_comand_info(&cmd, &t, f);
-		ft_print_t_cmd_linked_list(cmd);
+		// ft_print_t_cmd_linked_list(cmd);
 	}
 	ft_free_all(f);	
 }

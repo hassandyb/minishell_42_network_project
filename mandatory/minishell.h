@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:52:06 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/13 16:16:50 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/20 14:06:48 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct s_cmd
 {
 	char **comand;
 	t_red *red;
+	int ofd;
+	int ifd;
 	struct s_cmd *next;//,_cmd *next;
 }t_cmd;
 

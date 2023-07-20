@@ -6,7 +6,7 @@
 /*   By: hed-dyb <hed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:54:34 by hed-dyb           #+#    #+#             */
-/*   Updated: 2023/07/13 14:23:16 by hed-dyb          ###   ########.fr       */
+/*   Updated: 2023/07/20 17:00:12 by hed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,13 @@ int ft_check_close(t_token *t)
 }
 
 int ft_check_file(t_token *t)// here i checl the i have (redirection </>..) then space then word/quote(for file fd or delimeter)
-{
-	if(t->next == NULL)
-		return (0);
-	if(t->next->type != _white_space)
-		return (0);
-	if(t->next->next == NULL)
-		return 0;
-	if(ft_is_wrd_qot(t->next->next) == 0)
-		return (0);
-	return (1);
+{	
+	if(ft_is_wrd_qot(t->next) == 1)
+		return (1);
+	if(t->next->type == _white_space && ft_is_wrd_qot(t->next->next) == 1)
+		return (1);
+	return (0);
+
 }
 
 int ft_parsing(t_token *t)
@@ -66,7 +63,7 @@ int ft_parsing(t_token *t)
 		if(t->next == NULL && t->type == _pipe) //pipe in the end
 			return (printf("syntax error\n"), 0);
 
-		if(ft_is_a_redirection(t) == 1 && ft_check_file(t) == 0)// in case you have redirection folloed by nothing or follo
+		if(ft_is_a_redirection(t) == 1 && ft_check_file(t) == 0)//
 			return (printf("syntax error\n"), 0);
 		
 		
