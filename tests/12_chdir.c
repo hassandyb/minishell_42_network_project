@@ -76,4 +76,92 @@
 
 
 
+// #include <stdio.h>
+// #include <unistd.h>
+
+// int main() {
+//     // Source and destination directories
+//     const char *srcDirectory = "/Users/hed-dyb/Desktop/tests";
+//     const char *destDirectory = "/Users/hed-dyb/Desktop/tests/dir1";
+
+//     // File name to move
+//     const char *filename = "file.txt";
+
+//     // Change current working directory to source directory
+//     chdir(srcDirectory) ;
+
+//     // Move the file from source directory to destination directory
+//     rename(filename, destDirectory);
+
+//     printf("File '%s' moved from '%s' to '%s'\n", filename, srcDirectory, destDirectory);
+
+//     return 0;
+// }
+
+
+
+
+
+
+
+// changing file location using chdir 
+
+
+// #include <stdio.h>
+// #include <unistd.h>
+
+// int main() {
+//     // Source and destination directories
+//     const char *srcDirectory = "/Users/hed-dyb/Desktop/tests";
+//     const char *destDirectory = "/Users/hed-dyb/Desktop/tests/dir1";
+
+//     // File name to move
+//     const char *filename = "file.txt";
+
+//     // Change current working directory to source directory
+//     chdir(srcDirectory);
+
+//     // Move the file from source directory to destination directory
+//     char destPath[4096];
+//     // snprintf(destPath, sizeof(destPath), "%s/%s", destDirectory, filename);
+//     rename(filename, destPath);
+
+//     // printf("File '%s' moved from '%s' to '%s'\n", filename, srcDirectory, destPath);
+
+//     return 0;
+// }
+
+
+//   
+
+
+
+
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+int main() 
+{
+	// 
+	char **argv = malloc(3 * sizeof(char *));
+
+	// argv[0] = "/bin/ls";// add bin here 
+	// argv[1] = "-la";
+	// argv[2] = NULL;
+
+	// execve(argv[0], argv, NULL);
+
+
+
+
+
+	argv[0] = "ls";// 
+	argv[1] = "-la";
+	argv[2] = NULL;
+
+	execve("/bin/ls", argv, NULL);
+    
+}
+
 
