@@ -28,6 +28,29 @@
 // }
 
 
+int main() {
+    int fd = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+
+
+    // Duplicate the file descriptor for stdout (file descriptor 1) to the new file descriptor (fd).
+    
+	
+	// dup2(fd, 1);
+    // Now anything written to stdout will be redirected to "output.txt".
+    // printf("This will be written to output.txt instead of the terminal.\n");
+	
+	
+	dup2(fd, 0);
+	scanf("Enter something :\n");
+	
+	close(fd);
+    // Don't forget to close the file descriptor when it's no longer needed.
+    close(fd);
+
+    return 0;
+}
+
+
 
 
 

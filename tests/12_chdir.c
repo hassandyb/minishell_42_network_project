@@ -164,4 +164,37 @@ int main()
     
 }
 
+//example      ------------------------
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main() {
+    const char* src = "/Users/hed-dyb/Desktop/exam-rank-04";
+    const char* dst = "/Users/hed-dyb/Desktop/exam-rank-04/to_test/dst";
+
+    // Fork the process to create a child process
+    pid_t pid = fork();
+
+
+     if (pid == 0) 
+	 {
+        // Child process
+        printf("Child process: Before changing directory:\n");
+        execve("/bin/pwd", (char *const[]){"pwd", NULL}, NULL);
+
+        exit(EXIT_FAILURE);
+    } else 
+	{
+        // Parent process
+        wait(NULL); // Wait for the child process to complete
+        printf("\nParent process: After changing directory:\n");
+        chdir(dst);
+        execve("/bin/pwd", (char *const[]){"pwd", NULL}, NULL);
+
+    }
+
+    return 0;
+}
