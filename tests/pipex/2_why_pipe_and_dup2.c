@@ -20,7 +20,7 @@
 // to change the defult 0 1 , 2 yu will need dup2 ....
 
 
-// let suose we want to excye ths comand ls - la | grep 1_why_pipe
+// let suose we want to excye ths comand cat file.txt | grep hassan
 
 
 int main ()
@@ -33,14 +33,17 @@ int main ()
     if(pid != 0)//parent process
     {
         wait(NULL);
-        // dup2(fd[1], 1);// changing standared out put
-        execve
+        dup2(fd[0], 0);
+        execve("/Users/hed-dyb/.brew/opt/grep/libexec/gnubin/grep", (char *[]){"grep", "hassan", NULL}, NULL);
+
     }
     else
     {
-        // dup2(fd[0], 0);
+        dup2(fd[1], 1);
+        execve("/bin/cat", (char *[]){"cat", "file.txt", NULL}, NULL);
 
     }
+
 }
 
 
